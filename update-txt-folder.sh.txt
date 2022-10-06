@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# = = = = = = = = = = = = = = = = = = = = = = = =
+# UPDATE TXT FOLDER - updated: 2022-10-05 19:35
+# = = = = = = = = = = = = = = = = = = = = = = = =
+
+
+
+# variables
+debian_tools_folder='../bash/debian-tools'
+binaries_installation_folder='../bash/binaries-installation'
+target_folder='./txt'
+
+
+
+# txt sources from debian-tools
+
+cp -v ${debian_tools_folder}/bash-help.txt ${target_folder}
+
+cp -v ${debian_tools_folder}/debian-11-install-notes-VitP2413.txt ${target_folder}
+
+
+
+# txt sources from binaries-installation
+
+cp -v ${binaries_installation_folder}/windows-env-rem.txt ${target_folder}
+
+cp -v ${binaries_installation_folder}/python-embeddable-installation.txt ${target_folder}
+
+cp -v ${binaries_installation_folder}/mariadb-binaries-install-initialize.txt ${target_folder}
+
+cp -v ${binaries_installation_folder}/postgresql-binaries-install-initialize.txt ${target_folder}
+
+cp -v ${binaries_installation_folder}/SpringToolSuite4.ini.txt ${target_folder}
+
+cp -v ${binaries_installation_folder}/windows-wsl-change-root-password.txt ${target_folder}
+
+cp -v ${binaries_installation_folder}/git-bash-windows-context-menu.txt ${target_folder}
+
