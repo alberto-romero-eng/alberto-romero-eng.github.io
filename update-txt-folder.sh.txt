@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER - updated: 2022-10-05 19:35
+# UPDATE TXT FOLDER -- updated: 2022-10-09 21:48
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -15,9 +15,11 @@ target_folder='./txt'
 
 # txt sources from debian-tools
 
-cp -v ${debian_tools_folder}/bash-help.txt ${target_folder}
+cp -v ${debian_tools_folder}/bash-help-src.txt ${target_folder}
 
 cp -v ${debian_tools_folder}/debian-11-install-notes-VitP2413.txt ${target_folder}
+
+cp -v ${debian_tools_folder}/_git-help-2.tmp.txt ${target_folder} # debug tmp
 
 
 
@@ -36,4 +38,6 @@ cp -v ${binaries_installation_folder}/SpringToolSuite4.ini.txt ${target_folder}
 cp -v ${binaries_installation_folder}/windows-wsl-change-root-password.txt ${target_folder}
 
 cp -v ${binaries_installation_folder}/git-bash-windows-context-menu.txt ${target_folder}
+
+
 
