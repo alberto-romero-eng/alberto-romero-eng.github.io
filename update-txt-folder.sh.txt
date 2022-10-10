@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2022-10-10 08:36
+# UPDATE TXT FOLDER -- updated: 2022-10-10 09:07
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -19,9 +19,7 @@ cp -v ${debian_tools_folder}/bash-help-src.txt ${target_folder}
 
 cp -v ${debian_tools_folder}/debian-11-install-notes-VitP2413.txt ${target_folder}
 
-cp -v ${debian_tools_folder}/draft_git-help-2-tmp.txt ${target_folder} # debug tmp
-
-# mv -v ${target_folder}/draft_git-help-2-tmp.txt ${target_folder}/git-help-2-tmp.txt # debug tmp
+cp -v ${debian_tools_folder}/draft-git-help-2-tmp.txt ${target_folder} # debug tmp
 
 
 
