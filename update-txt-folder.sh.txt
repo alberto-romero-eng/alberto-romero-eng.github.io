@@ -21,6 +21,8 @@ cp -v ${debian_tools_folder}/debian-11-install-notes-VitP2413.txt ${target_folde
 
 cp -v ${debian_tools_folder}/_git-help-2-tmp.txt ${target_folder} # debug tmp
 
+mv -v ${target_folder}/_git-help-2-tmp.txt ${target_folder}/git-help-2-tmp.txt # debug tmp
+
 
 
 # txt sources from binaries-installation
