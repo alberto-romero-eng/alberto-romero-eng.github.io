@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2022-10-10 09:07
+# UPDATE TXT FOLDER -- updated: 2022-10-12 11:55
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
 
-# variables
+# constants
 debian_tools_folder='../bash/debian-tools'
 binaries_installation_folder='../bash/binaries-installation'
 target_folder='./txt'
@@ -15,29 +15,32 @@ target_folder='./txt'
 
 # txt sources from debian-tools
 
-cp -v ${debian_tools_folder}/bash-help-src.txt ${target_folder}
+command cp -v ${debian_tools_folder}/bash-help-src.txt ${target_folder}
+command sed -E -i.old 's/(.)$/\1\n/g' ./txt/bash-help-src.txt
+command rm -v ./txt/bash-help-src.txt.old
 
-cp -v ${debian_tools_folder}/debian-11-install-notes-VitP2413.txt ${target_folder}
+command cp -v ${debian_tools_folder}/debian-11-install-notes-VitP2413.txt ${target_folder}
 
-cp -v ${debian_tools_folder}/draft-git-help-2-tmp.txt ${target_folder} # debug tmp
+command cp -v ${debian_tools_folder}/draft-git-help-2-tmp.txt ${target_folder} # debug tmp
 
 
 
 # txt sources from binaries-installation
 
-cp -v ${binaries_installation_folder}/windows-env-reminder.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/windows-env-reminder.txt ${target_folder}
 
-cp -v ${binaries_installation_folder}/python-embeddable-installation.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/python-embeddable-installation.txt ${target_folder}
 
-cp -v ${binaries_installation_folder}/mariadb-binaries-install-initialize.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/mariadb-binaries-install-initialize.txt ${target_folder}
 
-cp -v ${binaries_installation_folder}/postgresql-binaries-install-initialize.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/postgresql-binaries-install-initialize.txt ${target_folder}
 
-cp -v ${binaries_installation_folder}/SpringToolSuite4.ini.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/SpringToolSuite4.ini.txt ${target_folder}
 
-cp -v ${binaries_installation_folder}/windows-wsl-change-root-password.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/windows-wsl-change-root-password.txt ${target_folder}
 
-cp -v ${binaries_installation_folder}/git-bash-windows-context-menu.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/git-bash-windows-context-menu.txt ${target_folder}
 
+command cp -v ${binaries_installation_folder}/minikube-install.txt ${target_folder}
 
 
