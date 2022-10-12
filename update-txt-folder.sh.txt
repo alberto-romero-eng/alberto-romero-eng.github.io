@@ -35,7 +35,7 @@ command cp -v ${binaries_installation_folder}/mariadb-binaries-install-initializ
 
 command cp -v ${binaries_installation_folder}/postgresql-binaries-install-initialize.txt ${target_folder}
 
-command cp -v ${binaries_installation_folder}/SpringToolSuite4.ini.txt ${target_folder}
+command cp -v ${binaries_installation_folder}/SpringToolSuite4.ini.*.txt ${target_folder}
 
 command cp -v ${binaries_installation_folder}/windows-wsl-change-root-password.txt ${target_folder}
 
