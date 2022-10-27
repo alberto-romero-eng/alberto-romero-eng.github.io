@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-10-12 08:00
+# BHS -- updated: 2022-10-20 07:15
 
 a:
 
@@ -10,7 +10,7 @@ apt-file:  Search file in packages (installed or not).  This command uses a repo
 
 apt:  A workflow to install a program would be: (1) `dpkg` to check if program/package is installed; (2) `apt-file` to search package containing program; (3) `apt` to install package.  See also apt-cache, apt-file, dpkg, dpkg-query.  Options:  --names-only discard other fields regarding search pattern.  --fix-missing solve faulty package installs.  Examples:  apt search --names-only 'man-db'  ;  apt install --fix-missing 'man-db'  ;  
 
-awk:  Executes curly brackets if line matches pattern.  Option -F field separator.  Can perform flaoting-point operations.  Backreference \0 is matched string.  See cut.  Examples:  ls -l | awk '/a/ { print $1 " " $3 }'  ;  echo '' | awk '{ print 1.1 + 2.2 }'  ;  echo -e '1|A|a\n2|B|b\n3|C|c' | awk -F '|' '{ print $1 ";" $2 ";" $3 ";" }'  ;  awk ' // { if ( $1 == "A" ) { $2 = "isA" } else if ( $1 == "B" ) { $2 = "isB" } else { $2 = "notANorB" } ; print $1 "|" $2 }' file.txt  ;
+awk:  Execute program if line matches pattern.  Can perform flaoting-point operations.  Backreference \0 is matched string.  See also: cut, join.  Options:  -F field separator.  Examples:  ls -l | awk '/a/ { print $1 " " $3 }'  ;  echo '' | awk '{ print 1.1 + 2.2 }'  ;  echo -e '1|A|a\n2|B|b\n3|C|c' | awk -F '|' '{ print $1 ";" $2 ";" $3 ";" }'  ;  awk ' // { if ( $1 == "A" ) { $2 = "isA" } else if ( $1 == "B" ) { $2 = "isB" } else { $2 = "notANorB" } ; print $1 "|" $2 }' file.txt  ;
 
 b:
 
@@ -34,11 +34,11 @@ cp:  Can be used to copy iso images into unmounted devices for os installation. 
 
 crontab:
 
-cut:  Print fields separated by a delimiter.  Option -d delimiter.  Option -f fields list.  See awk.  Examples:  echo -e '1,A,a\n2,B,b\n3,D,d\n' | cut -d, -f1,2,3  ;  
+cut:  Print fields separated by a delimiter.  Option -d delimiter.  Option -f fields list.  See also: awk, join.  Examples:  echo -e '1,A,a\n2,B,b\n3,D,d\n' | cut -d, -f1,2,3  ;  
 
 d:
 
-date:  Print date acording to different formats.  Useful to get Unix time in seconds.  Options:  +'%F %T' output format using sequences, see examples.  -Iseconds simple output, indicating precision: date, minutes, seconds.  -d --date input timestamp, use '@' for seconds since epoch.  Examples:  date +'%s'  ;  date +'%F %T %:z'  ;  date +'%Y-%m-%d %H:%M:%S %Z'  ;  date -I  ;  date -Idate  ;  date -Iminutes  ;  date -Iseconds  ;  date --rfc-3339=seconds  ;  date -d '@1001001001' +'%F %T %z'  ;  date -d '2001-09-20 11:50:01 -0400' +'%s'  ;  
+date:  Print date acording to different formats.  Useful to get Unix time in seconds.  Careful with TZ in git-bash, fails silently, seems to understand only local, GMT and UTC; check before by parsing as input (-d, see example).  Options:  +'%F %T' output format using sequences, see examples.  -Iseconds simple output, indicating precision: date, minutes, seconds.  -d --date input timestamp, use '@' for seconds since epoch  ;  -u utc time  ;  TZ=GMT output timezone (see examples).  Examples:  date +'%s'  ;  date +'%F %T %:z'  ;  date +'%Y-%m-%d %H:%M:%S %Z'  ;  date -I  ;  date -Idate ; date -Id   ;  date -Iminutes ; date -Im  ;  date -Iseconds ; date -Is  ;  date --rfc-3339=seconds  ;  date -d '@1001001001' +'%F %T %z'  ;  date -d '2001-09-20 11:50:01 -0400' +'%s'  ;  date -d '2001-09-20 11:50 UTC' -Is  # validate TZ  ;  date -u  ;  TZ=GMT date  ;  
 
 dd:  Copy byte streams.  It is not as fast as 'cp', 'cat' or 'pv'.  Using 'bs=1M' resulted in best possible speed (tested).  Using 'bs=4M' is recommended by Debian install manuals (not tested yet).  Advantages: (1) Limit input size when option 'count' is set; (2) Query progress with signal SIGUSR1 when in background.  In the tests below WSL was faster than git-bash, per 'dd' execution and per '/dev/random' bytes generation.   Options:  bs=1M block size, here with recommmended value.  count=1K how many blocks to process, skip in most cases.  if=/dev/random input file.  of=f.bin output file.  Examples:  time dd bs=1K count=1K if=/dev/random of=f.bin # increment bs or count to 10K-1M as convenient  ;  dd bs=1M if=f.bin of=f.bin.dd1M & pid=$! ; kill -SIGUSR1 $pid  ;  
 
@@ -94,7 +94,7 @@ ip:  List, manage network devices.  Example: ip link ; ip link set 'wlan0' up ; 
 
 j:
 
-join:  Join two files, according to a common field (default: first field ).  Option '-t' field separator. Example:  join -t ',' file1.txt file2.txt  ;  
+join:  Join two files, according to a common field (default: first field ).  See also: awk, cut.  Options:  -t field separator.  Examples:  join -t ',' file1.txt file2.txt  ;  join -t '|' <(echo '1|Juan') <(echo '1|Arauca')  ;  
 
 jp2a:  Convert jpeg to ascii.
 
@@ -164,7 +164,7 @@ s:
 
 screen:  Share screen with other session over ssh.
 
-sed:  Mainly for line by line substitution if criteria is met.  Can also print specific line.  Backreference '\0' is entire pattern match.  Escape sequences '\U' or '\L' to upper or lower case backreference.  Options:  -E extended re.  -i.old inplace modify, create backup file with suffix.  -b do not erase \x0d (cr).  Examples:  sed -E '{ s/cat/dog/ig }' file.txt  ;  sed -n '{ 4p }' file.txt  ;  sed -f script.sed file.txt  ;  sed -E '{ s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g }' color-log.txt > no-color-log.txt  ;  sed -E '{ s/(.)$/\1\n/g }' file.txt > file_double_newline.txt  ;  grep --color=never -r 'word' ./ | sed -E '{ s/^([^:]+):.+$/\1/ }' # print files containing 'word'  ;  sed -E '{ s/(.)$/\1\n/g }' log.txt > log.in-between-white-line.txt  ;  sed -b -E '{ s/(\x0d)$/\1\n\1/g }' log.cr-nl.txt > log.cr-nl.in-between-white-line.txt  ;  
+sed:  Mainly for line by line substitution if criteria is met.  Can also print specific line.  Backreference '\0' is entire pattern match.  Escape sequences '\U' or '\L' to upper or lower case backreference.  See also: tr, truncate.  Options:  -E extended re.  -i.old inplace modify, create backup file with suffix.  -b do not erase \x0d (cr).  -f sed script file.  Examples:  sed -E '{ s/cat/dog/ig }' file.txt  ;  sed -n '{ 4p }' file.txt  ;  sed -f script.sed file.txt  ;  sed -E '{ s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g }' color-log.txt > no-color-log.txt  ;  sed -E '{ s/(.)$/\1\n/g }' file.txt > file_double_newline.txt  ;  sed -b -E '{ s/(\x0d)$/\1\n\1/g }' log.cr-nl.txt > log.cr-nl.in-between-white-line.txt  ;  grep --color=never -r 'word' ./ | sed -E '{ s/^([^:]+):.+$/\1/ }' # print files containing 'word'  ;  
 
 seq:  Print sequence.  Examples: seq 5  ;  seq 0 5  ;  seq 0  0.5  5  ; 
 
@@ -186,9 +186,9 @@ time:  Count time a process take to run.  Example: time sleep 5 ;
 
 timeout:  Kill a process after n seconds.  Exmample: timeout 2 sleep 5 ;
 
-tr:  Translate characters, one by one.  Option -d delete caracter(s).  Examples:  echo 'a i u o e' | tr 'aeiou' 'AEIOU'  ;  echo -E 'a\ne\ni\no\nu' | tr -d '\n'  ;  echo 'a i u o e' | tr '[:lower:]' '[:upper:]'  ;  
+tr:  Translate characters, one by one.  See also: sed, truncate.  Options:  -d delete caracter(s).  Examples:  echo 'a i u o e' | tr 'aeiou' 'AEIOU'  ;  echo -E 'a\ne\ni\no\nu' | tr -d '\n'  ;  echo 'a i u o e' | tr '[:lower:]' '[:upper:]'  ;  
 
-truncate:  Eliminate bytes or characters from file.  Useful to eliminate trailing newline from text files.  Example: truncate -s -1 file.txt ;
+truncate:  Eliminate bytes or characters from file.  Useful to eliminate trailing newline from text files.  See also: tr, sed.  Examples:  truncate -s -1 file.txt  ;  
 
 type:  Indicate type of command: alias, function, builtin or executable from $PATH.  See also: which.  Example: type ls  ;
 
