@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-10-20 07:15
+# BHS -- updated: 2022-10-30 06:45
 
 a:
 
@@ -176,7 +176,7 @@ split:  Split file
 
 stty:  Config / properties of shell.  Option 'size' to get screen size.  Example: stty size  ;
 
-systemctl:  Check / manage services.  Enable/disable is related to system startup.  Examples:  systemctl list-units --type=service --state=running  ;  systemctl status tomcat9  ;  systemctl disable tomcat 9
+systemctl:  Check / manage services.  Actions:  enable|disable related to system startup.  Examples:  systemctl list-units --type=service --state=running  ;  systemctl status tomcat9  ;  systemctl disable tomcat 9 # disable at startup  ;  
 
 t:
 
