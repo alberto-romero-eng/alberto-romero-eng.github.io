@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-10-30 06:45
+# BHS -- updated: 2022-11-24 05:06
 
 a:
 
@@ -16,7 +16,7 @@ b:
 
 basename:  See dirname, realpath
 
-bash:  Execute shell, string-script or file-script in new bash-child-process (sub-shell).  Precedence order: alias, function, builtin, executable.  Aliases are not recursive; functions can be.  Use 'command' in function implementation to avoid recursion.  Special variables: $$ current bash pid, $- current bash options, $0 current program, $* arguments ($1 $2 ...), $@ arguments as array, $# number of arguments, $? last command exit code, $! last sent-to-background command pid.  See also: alias, function, enable, command.  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Options:  -c execute string-script.  -x debug.  -v print each sentence before execution.  Examples:  bash # execute subshell  ;  bash -c 'echo ${$} ; ps ;' # execute string-script  ;  bash -x ./file-script.sh # execute file-script with debug  ;  ./file-script.sh # execute file-script with shebang line (whose options could be customized)  ;  bash <( echo 'echo "${*}" ; echo "${@}" ;' ) __a__ __b__ * # test argument variables  ;  
+bash:  Execute shell, string-script or file-script in new bash-child-process (sub-shell).  Precedence order: alias, function, builtin, executable.  Aliases are not recursive; functions can be.  Use 'command' in function implementation to avoid recursion.  Special variables: $$ current bash pid, $- current bash options, $0 current program, $* arguments ($1 $2 ...), $@ arguments as array, $# number of arguments, $? last command exit code, $! last sent-to-background command pid.  Redirection: use '(command) &> out.txt' or '(command) 1> out.txt 2>&1' to send program stdout and stderr to same stream.  See also: alias, function, enable, command.  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Options:  -c execute string-script.  -x debug.  -v print each sentence before execution.  Examples:  bash # execute subshell  ;  bash -c 'echo ${$} ; ps ;' # execute string-script  ;  bash -x ./file-script.sh # execute file-script with debug  ;  ./file-script.sh # execute file-script with shebang line (whose options could be customized)  ;  bash <( echo 'echo "${*}" ; echo "${@}" ;' ) __a__ __b__ * # test argument variables  ;  
 
 c:
 
