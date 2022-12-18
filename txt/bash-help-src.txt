@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-11-24 05:06
+# BHS -- updated: 2022-12-09 09:43
 
 a:
 
@@ -94,6 +94,8 @@ ip:  List, manage network devices.  Example: ip link ; ip link set 'wlan0' up ; 
 
 j:
 
+jar:  Perform 'create', 'extract' or 'list' operations on Java ARchive files.  Also useful to handle ZIP files.  Sequence: jar {ctxui}[vfmn0PMe] [jar-file] [manifest-file] [entry-point] [-C dir] file(s).  See also: 'tar'.  Actions:  -c create new JAR file.  -t list contents of JAR file.  -x extract from JAR file.  Options:  -v verbose output.  -f JAR file on which -c, -x or -t will operate.  -m file with info to include in manifest.  -0 no compression.  -M do not include manifest.  -e main class to indicate in manifest.  -C change directory for contents inclusion.  Examples:  jar -tf file.jar # list content in file.jar  ;  jar -xf file.jar # extract content from file.jar  ;  jar -cf file.jar $( ls ) # create file.jar containing all files (and folders) in current dir  ;  jar -cf file.jar -C ./src/ $( cd src ; ls ) # create file.jar containing all files (and folders) in dir src  ;  jar -cvfm file.jar manifest.txt src  ;  jar -cf0M file.zip src # create standard zip file (no compression, no manifest)  ;  
+
 join:  Join two files, according to a common field (default: first field ).  See also: awk, cut.  Options:  -t field separator.  Examples:  join -t ',' file1.txt file2.txt  ;  join -t '|' <(echo '1|Juan') <(echo '1|Arauca')  ;  
 
 jp2a:  Convert jpeg to ascii.
@@ -179,6 +181,8 @@ stty:  Config / properties of shell.  Option 'size' to get screen size.  Example
 systemctl:  Check / manage services.  Actions:  enable|disable related to system startup.  Examples:  systemctl list-units --type=service --state=running  ;  systemctl status tomcat9  ;  systemctl disable tomcat 9 # disable at startup  ;  
 
 t:
+
+tar:  Perform 'create', 'extract' or 'list' operations on Tape ARchive files.  Sequence: tar {ctx}[vfajJzZ] [tar-file] [-C dir] file(s).  See also 'jar'.  Actions:  -c create new TAR.  -t list contents of TAR file.  -x extract from existing TAR.  Options:  -v verbose output.  -f TAR file on which -c, -x or -t will operate.  -a -j -J -z -Z compression options, see help.  -C change directory.  Examples:  tar -tf file.tar # list content in file.tar  ;  tar -xf file.tar # extract content from file.tar  ;  tar -cf file.tar $( ls  ) # create file.tar containing all files (and folders) in current dir  ;  tar -cf file.tar -C ./src/ $( cd src ; ls ) # create file.tar with all files (and folders) in dir src  ;  
 
 taskkill:  Windows command, equivalent to unix 'kill -SIGKILL'.  When executing from git-bash, forward-slash should be doubled.  See also: 'cmd.exe', 'kill'.  Examples:  taskkill //f //pid 1234  ;  cmd.exe /C 'taskkill /f /pid 1234'  ;   
 
