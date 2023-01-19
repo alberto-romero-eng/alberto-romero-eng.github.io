@@ -57,7 +57,7 @@ command cp -v ${binaries_installation_folder}/minikube-install.txt ${target_fold
 
 command cp -v ${miscellaneous_folder}/* ${target_folder}
 
-mv -v ${target_folder}/holidays.txt ${target_folder}/h.txt
+mv -v ${target_folder}/holidays.txt ${target_folder}
 
 mv -v ${target_folder}/tour.txt ${target_folder}/t.txt
 
