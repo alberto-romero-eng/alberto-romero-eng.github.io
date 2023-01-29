@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-01-15 13:45
+# BHS -- updated: 2022-01-19 14:00
 
 a:
 
@@ -14,7 +14,7 @@ awk:  Execute program if line matches pattern.  Can perform flaoting-point opera
 
 b:
 
-basename:  See dirname, realpath
+basename:  See dirname, realpath, shopt (globstar).
 
 bash:  Execute shell, string-script or file-script in new bash-child-process (sub-shell).  Precedence order: alias, function, builtin, executable.  Aliases are not recursive; functions can be.  Use 'command' in function implementation to avoid recursion.  Special variables: $$ current bash pid, $- current bash options, $0 current program, $* arguments ($1 $2 ...), $@ arguments as array, $# number of arguments, $? last command exit code, $! last sent-to-background command pid.  Redirection: use '(command) &> out.txt' or '(command) 1> out.txt 2>&1' to send program stdout and stderr to same stream.  See also: alias, function, enable, command.  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Options:  -c execute string-script.  -x debug.  -v print each sentence before execution.  Examples:  bash # execute subshell  ;  bash -c 'echo ${$} ; ps ;' # execute string-script  ;  bash -x ./file-script.sh # execute file-script with debug  ;  ./file-script.sh # execute file-script with shebang line (whose options could be customized)  ;  bash <( echo 'echo "${*}" ; echo "${@}" ;' ) __a__ __b__ * # test argument variables  ;  while read myline; do echo $myline; done < <( echo -e 'a\nb\nc' ) # loop through file lines  ;  echo -e 'a\nb\nc' | while read myline ; do echo $myline ; done; # idem  ;  
 
@@ -50,7 +50,7 @@ dialog:  Create GUIs in bash using nCurses.
 
 diff:  Compare two files line by line.  Options:  -u human readable, git-diff like.  -y side by side comparison, useful to check small variations, like properties.  -b ignore whitespace changes.  -B ignore whiteline changes.  --left-column do not double-print common lines when using -y.  --supress-common-lines do not print common lines when using -y. 
 
-dirname:  See basename, realpath
+dirname:  See basename, realpath, shopt (globstar).
 
 dmesg:  Query last linux system log entries.
 
@@ -76,7 +76,7 @@ f:
 
 fdisk:  Example: fdisk -l
 
-find:  Search files starting from indicated directory, applying several possible selection criteria.  Options:  -name|iname filter by filname, 'ls' like.  -regex|iregex filter by absolute path plus filename.  Examples:  find ./  ;  find ~ -name '*bash*'  ;  find ~ -regex '.*bash.*'  ;  
+find:  Search files starting from indicated directory, applying several possible selection criteria.  If no dir is indicated, current dir is assumed.  See also: basename, dirname, realpath, shopt (globstar).  Options:  -name|iname filter by basename ('ls' like).  -wholename|iwholename filter by realpath.  -regex|iregex filter by absolute path plus filename.  Examples:  find  ;  find ~ -name '*bash*'  ;  find ~ -regex '.*bash.*'  ;  
 
 function:  Declare functions, which can take positional parameters ($1, $2, $3, ...) and environment variables.  After aliases, functions have the higher precedence over builtins and executables.  Different from aliases, functions can be recursive, so careful with using its name into its implementation.  Use 'command' when recursion is not intended.  See also: alias, enable, bash, command.  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Examples:  function my_function { echo $1 $2 $3 ; echo ; echo 'done!' ; } ; my_function  ;  function pwd { echo 'function pwd!!!' ; command pwd ; } # avoiding recursion  ;  
 
@@ -158,7 +158,7 @@ q:
 
 r:
 
-realpath:  See basename, dirname
+realpath:  See basename, dirname, shopt (globstar).
 
 rsync:  Like scp, but more efficient.
 
@@ -169,6 +169,8 @@ screen:  Share screen with other session over ssh.
 sed:  Mainly for line by line substitution if criteria is met.  Can also print specific line.  Backreference '\0' is entire pattern match.  Escape sequences '\U' or '\L' to upper or lower case backreference.  See also: tr, truncate.  Options:  -E extended re.  -i.old inplace modify, create backup file with suffix.  -b do not erase \x0d (cr).  -f sed script file.  Examples:  sed -E '{ s/cat/dog/ig }' file.txt  ;  sed -n '{ 4p }' file.txt  ;  sed -f script.sed file.txt  ;  sed -E '{ s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g }' color-log.txt > no-color-log.txt  ;  sed -E '{ s/(.)$/\1\n/g }' file.txt > file_double_newline.txt  ;  sed -b -E '{ s/(\x0d)$/\1\n\1/g }' log.cr-nl.txt > log.cr-nl.in-between-white-line.txt  ;  grep --color=never -r 'word' ./ | sed -E '{ s/^([^:]+):.+$/\1/ }' # print files containing 'word'  ;  
 
 seq:  Print sequence.  Examples: seq 5  ;  seq 0 5  ;  seq 0  0.5  5  ; 
+
+shopt:  Manage shell options.  Setting 'globstar' (**) is usually disabled, useful when realpath's are required.  See also: basename, dirname, realpath, find.  Actions:  -p print all shell settings.  -s [option] enable (set) shell option.  -u [option] disable (unset) shell option.  Examples:  shopt -p  ;  shopt -s globstar ; echo ** # enable globstar  ;  shopt -u globstar ; echo ** # disable globstar  ;  
 
 sort:  Order file lines, ascii criteria
 
