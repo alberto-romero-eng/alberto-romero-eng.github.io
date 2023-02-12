@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-01-19 14:00
+# BHS -- updated: 2022-02-03 11:37
 
 a:
 
@@ -104,7 +104,7 @@ k:
 
 l:
 
-less:  Buffer file for readingon secreen.  Options described a contination are for prompt at screen bottom.  Options:  -R raw or display colors.  -M long prompt, works along option -n.  -m short prompt.  -N line number column.  -n line number in prompt.  -J status column.  -S chop long lines.  -s chop empty lines.  -I case insensitive search.  -G highlight search.  Actions:  / - search forward.  ? - search backward.  n - next search result.  N -  previous search result.  & -  filter or grep.
+less:  Buffer file for readingon secreen.  Options described a contination are for prompt at screen bottom.  Options:  -R raw or display colors.  -M long prompt, works along option -n.  -m short prompt.  -N line number column.  -n line number in prompt.  -J status column.  -S chop long lines, line wrap.  -s hide multiple empty lines.  -I case insensitive search.  -G highlight search.  Actions:  / - search forward.  ? - search backward.  n - next search result.  N -  previous search result.  & -  filter or grep.
 
 let:  Perform integer arithmetic calculations, assign result to variable.  Examples:  let 'b=2^16-1' 'mins=total_secs/60' 'secs=total_sec%60'  ;  
 
