@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-02-03 11:37
+# BHS -- updated: 2022-02-22 04:47
 
 a:
 
@@ -34,7 +34,9 @@ cp:  Can be used to copy iso images into unmounted devices for os installation. 
 
 crontab:
 
-cut:  Print fields separated by a delimiter.  Option -d delimiter.  Option -f fields list.  See also: awk, join.  Examples:  echo -e '1,A,a\n2,B,b\n3,D,d\n' | cut -d, -f1,2,3  ;  
+curl:  Make requests from bash or commandline.  Options:  --request,-X GET, POST, other.  --header,-H header.  --data,-d data, use @ to source from file.  --url url.  --trace-time print timestamps with each socket line.  --max-time set a max time (seconds) to wait for server response (to request).  --connection-timeout set a timeout for establishing connection with server.  --local-port set a value or max-min value range for client port.  -0 like header 'connection: close'.  -s quiet mode, do not show progress.  -i show headers.  -v verbose.
+
+cut:  Print fields separated by a delimiter.  Options:  -d delimiter.  -f fields list.  See also: awk, join.  Examples:  echo -e '1,A,a\n2,B,b\n3,D,d\n' | cut -d, -f1,2,3  ;  
 
 d:
 

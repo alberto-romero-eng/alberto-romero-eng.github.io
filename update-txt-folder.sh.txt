@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2023-02-12 10:07
+# UPDATE TXT FOLDER -- updated: 2023-03-02 09:55
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -26,36 +26,38 @@ command cp -v ${bash_folder}/bash-help-src.txt ${target_folder}
 command sed -E -i.old 's/(.)$/\1\n/g' ./txt/bash-help-src.txt
 command rm -v ./txt/bash-help-src.txt.old
 
-command cp -v ${bash_folder}/debian-11-install-notes-VitP2413.txt ${target_folder}
-
 
 
 # txt sources from bash/apps
 
-command cp -v ${apps_folder}/git-help.txt ${target_folder} # debug tmp
+command cp -v ${apps_folder}/elasticsearch-kibana-help.txt ${target_folder}
 
-command cp -v ${apps_folder}/windows-env-help.txt ${target_folder}
 
-command cp -v ${apps_folder}/python-help.txt ${target_folder}
+command cp -v ${apps_folder}/kubectl-kubernetes-minikube-help.txt ${target_folder}
+command cp -v ${apps_folder}/git-help.txt ${target_folder}
 
-command cp -v ${apps_folder}/mariadb-mysql-help.txt ${target_folder}
-
-command cp -v ${apps_folder}/postgresql-help.txt ${target_folder}
 
 command cp -v ${apps_folder}/eclipse-help.txt ${target_folder}
-
 command cp -v ${apps_folder}/eclipse.ini.sample.txt ${target_folder}
+command cp -v ${apps_folder}/maven-help.txt ${target_folder}
+command cp -v ${apps_folder}/gradle-help.txt ${target_folder}
 
+
+command cp -v ${apps_folder}/mariadb-mysql-help.txt ${target_folder}
+command cp -v ${apps_folder}/postgresql-help.txt ${target_folder}
+command cp -v ${apps_folder}/python-help.txt ${target_folder}
+# ( bash-help belongs to bash source folder )
+
+
+command cp -v ${apps_folder}/windows-env-help.txt ${target_folder}
 command cp -v ${apps_folder}/git-bash-windows-context-menu-help.txt ${target_folder}
-
-command cp -v ${apps_folder}/minikube-kubernetes-help.txt ${target_folder}
+command cp -v ${apps_folder}/debian11-VitP2413-help.txt ${target_folder}
+command cp -v ${apps_folder}/printer-hp-p1000-debian-help.txt ${target_folder}
 
 
 
 # txt sources from miscellaneous
 
 command cp -v ${miscellaneous_folder}/* ${target_folder}
-
 mv -v ${target_folder}/tour.txt ${target_folder}/t.txt
-
 
