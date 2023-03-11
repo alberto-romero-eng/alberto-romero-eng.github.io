@@ -1,4 +1,4 @@
-# BHS -- updated: 2022-02-22 04:47
+# BHS -- updated: 2022-03-11 07:29
 
 a:
 
@@ -218,7 +218,7 @@ users:  Pending
 
 v:
 
-vi:  Default bash text editor.  Actions described are for prompt at screen bottom.  Actions:  ESC (press several times) clean prompt or exit insert mode.  i insert mode.  :w write file.  :q quit.  :q! quit without changes.  yy copy (yank) line.  p paste line.  dd delete line.  dw delete word.  d (arrow) delete character.  / search regex, forward.  ? search regex, backwards.  n next search result.  N previous search result.  ctrl+Begin|End|(arrows) and Begin|End fast cursor motion.  :%s/{regex}/{string}/{flags} for substituion, omit % for substitution in current line only.  :%s/{regex}//gn to count matches.  :set number|nonumber to display line numbers.  :set hlsearch|nohlsearch to highlight search matches.  :u undo.   
+vi:  Default bash text editor.  Actions described are for prompt at screen bottom.  Actions:  ESC clean prompt or exit insert mode.  i insert mode.  :w write file.  :q quit.  :q! quit without changes.  yy copy (yank) line.  p paste line.  dd delete line.  dw delete word.  d (arrow) delete character.  / search regex, forward.  ? search regex, backwards.  n next search result.  N previous search result.  ctrl+Begin|End|(arrows) and Begin|End fast cursor motion.  :{range}s/{regex}/{string}/{flags} for substituion.  :set number|nonumber to display line numbers.  :set hlsearch|nohlsearch to highlight search matches.  :u undo.  Examples:  :s/foo/bar/ # replace 'foo' with 'bar', current line, first ocurrence  ;  :%s/foo/bar/g # all lines, all ocurrences  ;  :.,$s/pick/squash/ # from current line to last line  ;  :%s/foo//gn # count matches  ;  
 
 w:
 
