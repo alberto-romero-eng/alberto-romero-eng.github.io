@@ -1,5 +1,5 @@
 = = = = = = = = = = = = = = = = = = = =
-MEDICINE -- updated 2023-01-17 14:40
+MEDICINE -- updated 2023-06-19 05:37
 = = = = = = = = = = = = = = = = = = = =
 
 Cold:
@@ -12,4 +12,8 @@ Depression:
 sertralina 100mg, 1/2 daily
 fluoxetina 20mg, 1 daily
 
+Sleep:
+Melatonina 5mg, before sleeping
 
+Mood:
+Risperidona, 0.75mg (3mg/4), daily

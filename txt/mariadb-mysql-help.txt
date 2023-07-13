@@ -1,5 +1,5 @@
 = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-MariaDB binaries install - updated: 2023-02-06 19:34
+MariaDB binaries install - updated: 2023-06-21 05:11
 = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -128,6 +128,10 @@ Console output options:
 
 (7.1) Check variables from client (parameters in my.ini):
 
+(7.1.1) Global variables
+
+SHOW VARIABLES LIKE '%version%';
+
 SHOW VARIABLES LIKE '%timeout%';
 
 SHOW TABLES WHERE Tables_in_information_schema LIKE '%variable%'
@@ -135,6 +139,10 @@ SHOW TABLES WHERE Tables_in_information_schema LIKE '%variable%'
 SELECT * FROM global_variables LIMIT 1
 
 SELECT * FROM global_variables WHERE variable_name LIKE '%timeout%'
+
+(7.1.2) Session variables
+
+(pending)
 
 
 
@@ -155,6 +163,8 @@ SHOW TABLES LIKE '%product%';
 SHOW OPEN TABLES LIKE '%product%';
 
 SHOW STATUS LIKE '%connection%';
+
+SHOW PROFILES ; -- deprecated, use Performance_Schema instead
 
 
 
@@ -208,4 +218,67 @@ B, --databases: databases to include in dump file
 --add-drop-table
 
 --skip-extended-insert: individual INSERT for each table row
+
+
+
+(9) TEMPORAL, ORDER, TODO:
+
+(9.1) initialization, install
+mysqld --initialize --console
+mysql -h localhost --password=mypassword --port 3306
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyN3wP4ssw0rd'; flush privileges; exit; 
+2023-03-29T09:53:08.756860Z 1 [Note] A temporary password is generated for root@localhost: XtzgNrz,n4-I
+
+(9.2) get db version
+SHOW VARIABLES LIKE 'version'; 
+
+(9.3) mysql does not support "returning" token, do instead:
+START TRANSACTION ;
+INSERT INTO table(fields) VALUES (values) ;
+SELECT LAST_INSERTED_ID() ;
+COMMIT ; 
+
+
+
+
+(10) TEMPORAL, ORDER, FAST-SQL SCRIPT:
+
+#! /bin/bash
+
+### variables
+user='my_user'
+host='my_host'
+port='3306'
+pass='my_password'
+db='my_database'
+
+### test query
+echo -e '\n-->query 1, test:'
+mysql -B -u $user --password=$pass -h $host -P $port -D $db -e 'select 1 as my_integer;'
+
+### intended query, insert
+echo -e '\n-->query 2, insert:'
+# i=${1}   # command-line value assignment
+i='10'     # direct value assignment
+while [ $i -lt '12' ] ; do
+    echo '--->i:'$i
+    sql='USE '${db}'; '
+    sql=${sql}'INSERT INTO `my_table` (`id`,`created_at`,`cif`,`bit_switch`) '
+    sql=${sql}"VALUES ('id_prefix_"${i}"',NOW(),'123456789',UNHEX('01')); "
+    echo $sql
+    mysql -B -u $user --password=$pass -h $host -P $port -D $db -e "$sql"
+    let 'i++'
+    echo ''
+done ;
+
+### end of script
+
+
+
+(11) TEMPORAL, ORDER, Temporally turn off constraints check
+
+SET foreign_key_checks = 0; -- turn off
+
+SET foreign_key_checks = 1; -- turn on
+
 
