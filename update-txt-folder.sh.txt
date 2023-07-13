@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2023-07-13 08:59
+# UPDATE TXT FOLDER -- updated: 2023-07-13 11:01
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -20,11 +20,22 @@ command mkdir -vp ${target_folder}
 
 
 
-# txt sources from bash/bash
+# txt source from bash/bash, extended file
 
-command cp -v ${bash_folder}/bash-help-src.txt ${target_folder}
-command sed -E -i.old 's/(.)$/\1\n/g' ./txt/bash-help-src.txt
-command rm -v ./txt/bash-help-src.txt.old
+command cp -v ${bash_folder}/bash-help-src.txt ${target_folder}/bash-help-src-extended.txt
+command sed -E -i.old 's/(.)$/\1\n/g' ./txt/bash-help-src-extended.txt
+command rm -v ./txt/bash-help-src-extended.txt.old
+
+
+
+# txt source from bash/bash, index file
+
+command cp -v ${bash_folder}/bash-help-src.txt ${target_folder}/bash-help-src-index.txt.old
+_s=$(command head -1 ${target_folder}/bash-help-src-index.txt.old)'\n'
+_s=${_s}"$(command grep --color=never -P '^[0-9A-Za-z]{2,}:' ${target_folder}/bash-help-src-index.txt.old | command cat -n | command sed -E '{ s/^([^:]+):(.*)$/\1/g }')"
+echo -e "${_s}" > ${target_folder}/bash-help-src-index.txt
+unset _s
+command rm -v ./txt/bash-help-src-index.txt.old
 
 
 
