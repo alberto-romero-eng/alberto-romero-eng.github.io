@@ -1,4 +1,4 @@
-# BHS -- updated: 2024-05-17 04:35
+# BHS -- updated: 2024-08-23 05:22
 
 # {0} -- execute 'hi' for index
 
@@ -112,7 +112,7 @@ gitlstree:  List files in indicated commit, with blob info/hash/id ouput.  See a
 
 gitmaintenance:  Perform maintenance on '.git' folder.  Accelerates git operations.  Actions:  run execute main maintenance actions / routines.  start execute softer / lesser actions.  Examples:  git maintenance run  ;  git maintenance start  ;
 
-gitpush:  Push commit to remote.  Options:  --delete delete remote branch.  --force allow reset remote branch to previous commit.  --force-with-lease safer than '--force'.  Examples:  git push origin --delete branch  ;  git push --force origin main  ;  
+gitpush:  Push commit / tag to remote.  Options:  --delete delete remote branch/tag.  --force allow reset remote branch to previous commit, or move remote tag.  --force-with-lease safer than '--force'.  Examples:  # branch operations.  git push  ;  git push --force  ;  git push <remote> --set-upstream <branch>  ;  git push <remote> --delete <branch>  ;  git push <remote> --force <branch>  ;  .  # tag operations.  git push <remote> <tag>  ;  git push <remote> --delete <tag>  ;  git push <remote> --force <tag>  ;
 
 gitrebase:  Re-build commits on another one.  When use interactively, use "pick" for first commit and "squash" for others to rebuild as unique commit.  See "vi" notes for search/replace text.  Options:  -i interactive.  Examples:  git rebase -i dev # rebuild current branch from 'dev'  ;  
 
