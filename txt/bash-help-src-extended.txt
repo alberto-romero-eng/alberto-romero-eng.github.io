@@ -1,4 +1,4 @@
-# BHS -- updated: 2024-08-23 05:22
+# BHS -- updated: 2024-10-11 08:30
 
 # {0} -- execute 'hi' for index
 
@@ -18,7 +18,7 @@ b:
 
 basename:  See dirname, realpath, shopt (globstar).  Examples:  find . -iname '*' | xargs -n1 realpath  ;  find . -iname '*' | xargs -n1 basename  ;  find . -iname '*' | xargs -n1 dirname  ;  
 
-bash:  Execute shell, string-script or file-script in new bash-child-process (sub-shell).  Precedence order: alias, function, builtin, executable.  Aliases are not recursive; functions can be.  Use 'command' in function implementation to avoid recursion.  Special variables: $$ current bash pid, $- current bash options, $0 current program, $* arguments ($1 $2 ...), $@ arguments as array, $# number of arguments, $? last command exit code, $! last sent-to-background command pid.  Redirection: use '(command) &> out.txt' or '(command) 1> out.txt 2>&1' to send program stdout and stderr to same stream.  Pipe: use '(command1) |& (command2)' to send both stdout and stderr of command1 to stdin of command2.  See also: alias, function, enable, command.  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Options:  -c execute string-script.  -x debug.  -v print each sentence before execution.  Examples:  bash # execute subshell  ;  bash -c 'echo ${$} ; ps ;' # execute string-script  ;  bash -x ./file-script.sh # execute file-script with debug  ;  ./file-script.sh # execute file-script with shebang line (whose options could be customized)  ;  bash <( echo 'echo "${*}" ; echo "${@}" ;' ) __a__ __b__ * # test argument variables  ;  f() { for s in "${@}" ; do echo ${s} ; done ; } ; f 'A1 A2' 'B1 B2' # see also difference using ${*}, also using no quotes  ;  while read myline; do echo $myline; done < <( echo -e 'a\nb\nc' ) # loop through file lines  ;  echo -e 'a\nb\nc' | while read myline ; do echo $myline ; done; # idem  ;  
+bash:  Execute shell, string-script or file-script in new bash-child-process (sub-shell).  Precedence order: alias, function, builtin, executable.  Aliases are not recursive; functions can be.  Use 'command' in function implementation to avoid recursion.  Special variables: ${$} current bash pid, ${-} current bash options, ${0} current program, ${*} arguments (${1} ${2} ...), ${@} arguments as array, ${#} number of arguments, ${?} last command exit code, ${!} last sent-to-background command pid.  Redirection: use '(command) &> out.txt' or '(command) 1> out.txt 2>&1' to send program stdout and stderr to same stream.  Pipe: use '(command1) |& (command2)' to send both stdout and stderr of command1 to stdin of command2.  See also: alias, function, enable, command.  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Options:  -c execute string-script.  -x debug.  -v print each sentence before execution.  Examples:  bash # execute subshell  ;  bash -c 'echo ${$} ; ps ;' # execute string-script  ;  bash -x ./file-script.sh # execute file-script with debug  ;  ./file-script.sh # execute file-script with shebang line (whose options could be customized)  ;  bash <( echo 'echo "${*}" ; echo "${@}" ;' ) __a__ __b__ * # test argument variables  ;  f() { for s in "${@}" ; do echo ${s} ; done ; } ; f 'A1 A2' 'B1 B2' # see also difference using ${*}, also using no quotes  ;  while read myline; do echo $myline; done < <( echo -e 'a\nb\nc' ) # loop through file lines  ;  echo -e 'a\nb\nc' | while read myline ; do echo $myline ; done; # idem  ;  
 
 c:
 
@@ -129,6 +129,8 @@ gitstash:  Save/manage local, temporal, work in progress.  A stash is essentiall
 gitstatus:  Check stage, files pending to commit, ignored files, others.  Options:  --ignored show ignored files by .gitignore rules.  Examples:  git status --ignored  ;  
 
 gitswitch:  Change branch, synchronize tree.  See also: checkout.  Example:  git switch <branch-name>  ;  
+
+gittag:  Tag actions on local repo.  See "git push" for tag actions on remote.  Options:  -d --delete remove existing tag, local.  -f --force change position of existing tag, local.  Examples:  git <tagname> # create tag  ;  git --delete <tagname>  ;  git --force <tagname>  ;  
 
 gradle:  Java project and dependency management.  Gradle can contain several projects, each consisting of several tasks.  File "settings.gradle" for initialization; file "build.gradle" for configuration and execution.  Convenient to set "alias g=./gradlew".  Examples:  gradle --help # about command itself  ;  gradle help # about project  ;  gradle help projects  ;  gradle tasks  ;  gradle help --task bootRun  ;  gradle clean  ;  gradle build  ;  gradle bootRun  ;  
 
