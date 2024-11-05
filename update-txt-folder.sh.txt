@@ -63,7 +63,7 @@ command cp -v ${apps_folder}/printer-hp-p1000-debian-help.txt ${target_folder}
 
 command cp -v ${apps_folder}/_DEPRECATED-maven-help.txt ${target_folder}
 command cp -v ${apps_folder}/_DEPRECATED-gradle-help.txt ${target_folder}
-command cp -v ${apps_folder}/_DEPRECATED-git-help.txt ${target_folder}
+# command cp -v ${apps_folder}/_DEPRECATED-git-help.txt ${target_folder} # 2024-11-05: defunct
 
 
 # txt sources from miscellaneous
