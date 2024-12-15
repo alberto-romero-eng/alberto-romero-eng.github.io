@@ -1,73 +1,81 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2023-07-13 11:01
+# UPDATE TXT FOLDER -- updated: 2024-12-15 15:45
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
 
 # constants
-bash_folder='../bash/bash'
-apps_folder='../bash/apps'
-miscellaneous_folder='../miscellaneous'
-target_folder='./txt'
+__IO_SRC_BASH_DIR__='../bash/bash'
+__IO_SRC_APPS_DIR__='../bash/apps'
+__IO_SRC_MISCELANEOUS_DIR__='../miscellaneous'
+__IO_TARGET_DIR__='./txt'
 
 
 
 # clean target folder
-command rm -vfR ${target_folder}
-command mkdir -vp ${target_folder}
+command rm -vfR ${__IO_TARGET_DIR__}
+command mkdir -vp ${__IO_TARGET_DIR__}
 
 
 
-# txt source from bash/bash, extended file
+# txt source from bash/bash/bash-help-src.txt, extended file
 
-command cp -v ${bash_folder}/bash-help-src.txt ${target_folder}/bash-help-src-extended.txt
+command cp -v ${__IO_SRC_BASH_DIR__}/bash-help-src.txt ${__IO_TARGET_DIR__}/bash-help-src-extended.txt
 command sed -E -i.old 's/(.)$/\1\n/g' ./txt/bash-help-src-extended.txt
 command rm -v ./txt/bash-help-src-extended.txt.old
 
 
 
-# txt source from bash/bash, index file
+# txt source from bash/bash/bash-help-src.txt, index file
 
-command cp -v ${bash_folder}/bash-help-src.txt ${target_folder}/bash-help-src-index.txt.old
-_s=$(command head -1 ${target_folder}/bash-help-src-index.txt.old)'\n'
-_s=${_s}"$(command grep --color=never -P '^[0-9A-Za-z]{2,}:' ${target_folder}/bash-help-src-index.txt.old | command cat -n | command sed -E '{ s/^([^:]+):(.*)$/\1/g }')"
-echo -e "${_s}" > ${target_folder}/bash-help-src-index.txt
+command cp -v ${__IO_SRC_BASH_DIR__}/bash-help-src.txt ${__IO_TARGET_DIR__}/bash-help-src-index.txt.old
+_s=$(command head -1 ${__IO_TARGET_DIR__}/bash-help-src-index.txt.old)'\n'
+_s=${_s}"$(command grep --color=never -P '^[0-9A-Za-z]{2,}:' ${__IO_TARGET_DIR__}/bash-help-src-index.txt.old | command cat -n | command sed -E '{ s/^([^:]+):(.*)$/\1/g }')"
+echo -e "${_s}" > ${__IO_TARGET_DIR__}/bash-help-src-index.txt
 unset _s
 command rm -v ./txt/bash-help-src-index.txt.old
 
 
 
+# txt source from bash/bash/git-bash-aliases.sh.txt, extended file
+
+command cp -v ${__IO_SRC_BASH_DIR__}/git-bash-aliases.sh.txt ${__IO_TARGET_DIR__}/git-bash-aliases-extended.sh.txt
+command sed -E -i.old 's/(.)$/\1\n/g' ./txt/git-bash-aliases-extended.sh.txt
+command rm -v ./txt/git-bash-aliases-extended.sh.txt.old
+
+
+
 # txt sources from bash/apps
 
-command cp -v ${apps_folder}/elasticsearch-kibana-help.txt ${target_folder}
+command cp -v ${__IO_SRC_APPS_DIR__}/elasticsearch-kibana-help.txt ${__IO_TARGET_DIR__}
 
 
-command cp -v ${apps_folder}/eclipse-help.txt ${target_folder}
-command cp -v ${apps_folder}/eclipse.ini.sample.txt ${target_folder}
+command cp -v ${__IO_SRC_APPS_DIR__}/eclipse-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/eclipse.ini.sample.txt ${__IO_TARGET_DIR__}
 
 
-command cp -v ${apps_folder}/mariadb-mysql-help.txt ${target_folder}
-command cp -v ${apps_folder}/postgresql-help.txt ${target_folder}
-command cp -v ${apps_folder}/python-help.txt ${target_folder}
-command cp -v ${apps_folder}/kubernetes-minikube-help.txt ${target_folder}
+command cp -v ${__IO_SRC_APPS_DIR__}/mariadb-mysql-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/postgresql-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/python-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/kubernetes-minikube-help.txt ${__IO_TARGET_DIR__}
 # ( bash-help belongs to bash source folder )
 
 
-command cp -v ${apps_folder}/windows-env-help.txt ${target_folder}
-command cp -v ${apps_folder}/git-bash-windows-context-menu-help.txt ${target_folder}
-command cp -v ${apps_folder}/debian11-VitP2413-help.txt ${target_folder}
-command cp -v ${apps_folder}/printer-hp-p1000-debian-help.txt ${target_folder}
+command cp -v ${__IO_SRC_APPS_DIR__}/windows-env-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/git-bash-windows-context-menu-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/debian11-VitP2413-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/printer-hp-p1000-debian-help.txt ${__IO_TARGET_DIR__}
 
 
-command cp -v ${apps_folder}/_DEPRECATED-maven-help.txt ${target_folder}
-command cp -v ${apps_folder}/_DEPRECATED-gradle-help.txt ${target_folder}
-# command cp -v ${apps_folder}/_DEPRECATED-git-help.txt ${target_folder} # 2024-11-05: defunct
+command cp -v ${__IO_SRC_APPS_DIR__}/_DEPRECATED-maven-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/_DEPRECATED-gradle-help.txt ${__IO_TARGET_DIR__}
+# command cp -v ${__IO_SRC_APPS_DIR__}/_DEPRECATED-git-help.txt ${__IO_TARGET_DIR__} # 2024-11-05: defunct
 
 
 # txt sources from miscellaneous
 
-command cp -v ${miscellaneous_folder}/* ${target_folder}
-mv -v ${target_folder}/tour.txt ${target_folder}/t.txt
+command cp -v ${__IO_SRC_MISCELANEOUS_DIR__}/* ${__IO_TARGET_DIR__}
+mv -v ${__IO_TARGET_DIR__}/tour.txt ${__IO_TARGET_DIR__}/t.txt
 

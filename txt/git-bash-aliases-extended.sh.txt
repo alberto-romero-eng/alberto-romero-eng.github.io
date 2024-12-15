@@ -1,0 +1,1839 @@
+#!/bin/bash
+
+# = = = = = = = = = = 
+
+# CUSTOMIZED ALIASES
+
+# = = = = = = = = = = 
+
+#
+
+# See constants section below for update date reference.
+
+#
+
+# INSTALLATION:
+
+# Put a copy of this file in $HOME folder.
+
+# Filename: folowing convention, change to '.git-bash-aliases' when copying to $HOME or %USERPROFILE%
+
+# Insert source hook in bash initialization file:
+
+#    - linux: '~/.bashrc'.
+
+#    - windows git-bash: '/etc/profile.d/aliases'.
+
+# Source hook (edit as convenient):
+
+#    __BH_SRC_FILE__='/c/Users/alber/.git-bash-aliases' ; if [ -e ${__BH_SRC_FILE__} ] ; then ; command source ${__BH_SRC_FILE__} ; echo $( __bh_h_greeting ) ; __jh_set_java_version 8 ; fi ; command unset __BH_SRC_FILE__ ; command cd ~/Desktop ;
+
+#
+
+# REMINDERS:
+
+#    - Script 'update.*' in this folder helps for fast improvement / deployment.
+
+#    - If an alias is to receive input frome pipe, do not use initial 'echo' helping reference.
+
+#    - Sections from the beginning contain aliases intended for both, Windows and Linux OS.
+
+#    - Sections at the end are to contain Windows-specific and Linux-specific aliases.
+
+#
+
+
+
+
+# Constants required for script
+
+__ALIAS_LAST_UPDATE__='2024-12-14 07:16'
+
+__ALIAS_TIMEOUT__='0.3'
+
+
+__JH_DEFAULT_JAVA_VERSION__='8' # valid values: '8', '17', '21' (formal value in pom.xml for '8' is '1.8')
+
+__JH_XMS__='8m'
+
+__JH_XMX__='256m'
+
+__JH_SPRING_PROFILES_ACTIVE__='alberto,albertolocalpre' # comma separated values, no whitespace
+
+__JH_JAR_LOG_HOME__=${HOME}'/Desktop/log'
+
+
+__BHS_FILE__=${HOME}/'.bash-help-src'
+
+
+__JH_XMS_DEFAULT__=${__JH_XMS__}
+
+__JH_XMX_DEFAULT__=${__JH_XMX__}
+
+
+__JH_WM_HOME__=${HOME}'/Desktop/dm-git-java'
+
+__KH_KUBE_HOME__=${HOME}'/Desktop/dm-git-aux/kubeconfig'
+
+
+ZH_CURRENT_FILE='_'
+
+ZH_ZEROHELPER_INIT=''
+
+ZH_CURRENT_ALIASES=''
+
+
+
+
+
+# ----------------------------------
+
+# Colors
+
+# ----------------------------------
+
+NOCOLOR='\033[0m'
+
+RED='\033[0;31m'
+
+GREEN='\033[0;32m'
+
+ORANGE='\033[0;33m'
+
+BLUE='\033[0;34m'
+
+PURPLE='\033[0;35m'
+
+CYAN='\033[0;36m'
+
+LIGHTGRAY='\033[0;37m'
+
+DARKGRAY='\033[1;30m'
+
+LIGHTRED='\033[1;31m'
+
+LIGHTGREEN='\033[1;32m'
+
+YELLOW='\033[1;33m'
+
+LIGHTBLUE='\033[1;34m'
+
+LIGHTPURPLE='\033[1;35m'
+
+LIGHTCYAN='\033[1;36m'
+
+WHITE='\033[1;37m'
+
+
+
+
+# ---------------------------------------------------
+
+# General Aliases - file browsing and manipulation
+
+# ---------------------------------------------------
+
+alias e='exit'
+
+alias z='command'
+
+alias l='echo "$(ls -a --color=always)"'
+
+alias ll='ls -lah --color=always'
+
+function __bh_cd { if [ -z ${1} ] ; then return ; else command cd ${1} ; ls ; fi ; }
+
+alias cd='__bh_cd'
+
+alias cp='cp -v'
+
+alias cpr='cp -vr'
+
+alias mv='mv -v'
+
+alias mkdir='mkdir -pv'
+
+alias rm='rm -v'
+
+function __bh_rmr { echo '--> rm -vfR '"${@}" ; sleep ${__ALIAS_TIMEOUT__} ; command rm -vfR "${@}" ; echo ; ll ; }
+
+alias rmr='__bh_rmr'
+
+alias tf='tail -f'
+
+alias t='__bh_t'
+
+alias h='__bh_h'
+
+alias hi='__bh_h_index'
+
+function __bh_cac { if [ -z "${1}" ] ; then clear ; else echo | awk '{ print '"${*}"' }' ; fi ; }
+
+alias c='__bh_cac'
+
+alias jb='jobs'
+
+alias k1='kill %1'
+
+alias k2='kill %2'
+
+alias k3='kill %3'
+
+alias k4='kill %4'
+
+alias k5='kill %5'
+
+alias k6='kill %6'
+
+alias k7='kill %7'
+
+alias k8='kill %8'
+
+function __bh_kill_all {
+
+    # confirm
+
+    echo '--> kill all running jobs'
+
+    read -p 'continue (y/n)?: ' _continue
+
+    if [[ ( -z ${_continue} ) || ( ${_continue} != 'y' ) ]] ; then
+
+        unset _continue
+
+        echo 'cancelled, no action performed'
+
+        jb
+
+        return 1
+
+    fi
+
+    # execute
+
+    k1 2> /dev/null ; k2 2> /dev/null ; k3 2> /dev/null ; k4 2> /dev/null ;
+
+    k5 2> /dev/null ; k6 2> /dev/null ; k7 2> /dev/null ; k8 2> /dev/null ;
+
+    jb
+
+    unset _continue
+
+}
+
+alias ka='__bh_kill_all'
+
+alias u='. ${HOME}/.git-bash-aliases ; __bh_h_greeting ; __bh_h ;'
+
+
+# testing:
+
+alias lg='ls -a --color=always | grep'
+
+alias llg='ls -la --color=always | grep'
+
+function __bh_clg { cd $( ls | grep --color=never $1 ) ; }
+
+
+# frequently used directories (two variants: user, script)
+
+alias cdk='cd ~/Desktop'
+
+alias cdk_s='command cd ~/Desktop'
+
+
+alias cdks='cd ~/Desktop/are-git-sandbox'
+
+alias cdks_s='command cd ~/Desktop/are-git-sandbox'
+
+
+alias cdkb='cd ~/Desktop/are-git-sandbox/bash/bash'
+
+alias cdkb_s='command cd ~/Desktop/are-git-sandbox/bash/bash'
+
+
+alias cdkj='cd ~/Desktop/dm-git-java'
+
+alias cdkj_s='command cd ~/Desktop/dm-git-java'
+
+
+alias cdka='cd ~/Desktop/dm-git-aux'
+
+alias cdka_s='command cd ~/Desktop/dm-git-aux'
+
+
+alias cdkk='cd ~/Desktop/dm-git-aux/kubeconfig'
+
+alias cdkk_s='command cd ~/Desktop/dm-git-aux/kubeconfig'
+
+
+alias cdkkt='cd ~/Desktop/dm-git-aux/kubeconfig/tmp'
+
+alias cdkkt_s='command cd ~/Desktop/dm-git-aux/kubeconfig/tmp'
+
+
+alias cdkl='cd ~/Desktop/log'
+
+alias cdkl_s='command cd ~/Desktop/log'
+
+
+
+
+# ------------------------------------------------------
+
+# General aliases - text/binary search and processing
+
+# ------------------------------------------------------
+
+alias grep='grep --color=always -P'
+
+alias sed='sed -E'
+
+alias less='less -R -M -i'
+
+alias diff='diff --color=always'
+
+alias od='od -v -An -tx1 -w16'
+
+alias snc='sed -E '\''{ s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g }'\'
+
+alias sinl='sed -E '\''{ s/(.)$/\1\n/g }'\'
+
+alias cn='cat -n'
+
+alias cnsc='cat -n | sed -E '\''s/^[ \t]+([0-9]+)[ \t]+/'$(echo -e -n $BLUE)'\1'$(echo -e -n $NOCOLOR)' /'\'
+
+function __bh_grep_sed_uniq_rf { grep --color=never -r ${1} ./ | sed -E '{ s/^([^:]+):.+$/\1/ }' | uniq ; }
+
+alias gsurf='__bh_grep_sed_uniq_rf '
+
+
+
+
+# ------------------------------------------------------
+
+# General aliases - time
+
+# ------------------------------------------------------
+
+alias date.xs='date +%s'
+
+alias date.sql='date +'\''%Y-%m-%d %H:%M:%S'\'
+
+
+
+
+# -----------------------------------------------------------
+
+# General aliases - fast command/function/variable reference
+
+# -----------------------------------------------------------
+
+function __bh_t { echo '--> declare -p' ${1} ; declare -p ${1} ; echo -e '\n--> type' ${1} ; type ${1} ; }
+
+
+
+
+# ---------------------------------------------------
+
+# General aliases - functions, helpers
+
+# ---------------------------------------------------
+
+
+function __bhs_line_expand {
+
+
+    command cat - \
+
+    | command sed -E '{ s/(^[^:]+:)/\n\1\n/g }' \
+
+    | command sed -E '{ s/(Actions?:|Options?:|Examples?:)/\n\1\n/g }' \
+
+    | command sed -E '{ s/(\.)( {2})/\1\n\2/g ; s/( {2};)( {2})/\1\n\2/g }'
+
+
+}
+
+
+function __bhs_line_index {
+
+
+    command cat -n \
+
+    | command sed -E '{ s/^([^:]+):(.*)$/\1/g }'
+
+
+}
+
+
+function __bh_h { 
+
+
+    if [ ! -e ${__BHS_FILE__} ] 
+
+    then
+
+        echo 'source file does not exist'
+
+        return 1
+
+    fi
+
+
+    __bh_h_greeting
+
+    command head -2 ${__BHS_FILE__}
+
+
+    if [ -z $1 ]
+
+    then
+
+        echo 'arg ${1} empty'
+
+    else
+
+        command grep --color=always -P '^'${1}':' ${__BHS_FILE__} | __bhs_line_expand
+
+    fi
+
+}
+
+
+function __bh_h_index { 
+
+
+    if [ ! -e ${__BHS_FILE__} ] 
+
+    then
+
+        echo 'source file does not exist'
+
+        return 1
+
+    fi
+
+
+    _s=$(__bh_h_greeting)'\n'
+
+    _s=${_s}$(command head -1 ${__BHS_FILE__})'\n'
+
+    _s=${_s}"$(command grep --color=never -P '^[0-9A-Za-z]{2,}:' ${__BHS_FILE__} | __bhs_line_index)"
+
+    command less -f <( echo -e "${_s}" )
+
+    
+
+    unset _s
+
+    
+
+}
+
+
+
+function print_fn { 
+
+    type $1 | tr '\n' ' ' | command sed -E 's/[ ]{2,}/ /g' ; 
+
+}
+
+
+function h_last_update { 
+
+    echo ${__ALIAS_LAST_UPDATE__} ; 
+
+}
+
+function __bh_h_greeting { 
+
+    echo '# GBA -- updated: '${__ALIAS_LAST_UPDATE__} ; 
+
+}
+
+
+
+
+# ------------------------------------------------------
+
+# Java Aliases - java automation
+
+# ------------------------------------------------------
+
+
+alias mc='echo "--> mvn clean"; sleep ${__ALIAS_TIMEOUT__}; mvn clean'
+
+alias mci='echo "--> mvn clean install -U -Dmaven.test.skip=true"; sleep ${__ALIAS_TIMEOUT__}; mvn clean install -U -Dmaven.test.skip=true'
+
+alias mcc='echo "--> mvn -T 1C clean compile -Dmaven.test.skip=true --offline"; sleep ${__ALIAS_TIMEOUT__}; mvn -T 1C clean compile -Dmaven.test.skip=true --offline'
+
+alias mcp='echo "--> mvn -T 1C clean package -Dmaven.test.skip=true --offline"; sleep ${__ALIAS_TIMEOUT__}; mvn -T 1C clean package -Dmaven.test.skip=true --offline'
+
+alias mp='echo "--> mvn -T 1C package -Dmaven.test.skip=true --offline"; sleep ${__ALIAS_TIMEOUT__}; mvn -T 1C package -Dmaven.test.skip=true --offline'
+
+alias mrjr='echo "--> mvn -T 1C resources:resources jar:jar spring-boot:repackage -Dmaven.test.skip=true --offline"; sleep ${__ALIAS_TIMEOUT__}; mvn -T 1C resources:resources jar:jar spring-boot:repackage -Dmaven.test.skip=true --offline'
+
+alias mrr='echo "--> mvn resources:resources"; sleep ${__ALIAS_TIMEOUT__}; mvn resources:resources'
+
+alias mec='echo "--> mvn clean eclipse:clean"; sleep ${__ALIAS_TIMEOUT__}; mvn clean eclipse:clean'
+
+alias mdt='echo "--> mvn dependency:tree"; sleep ${__ALIAS_TIMEOUT__}; mvn dependency:tree'
+
+alias mdr='echo "--> mvn dependency:resolve -U"; sleep ${__ALIAS_TIMEOUT__}; mvn dependency:resolve -U'
+
+alias mdp='echo "--> mvn dependency:purge-local-repository"; sleep ${__ALIAS_TIMEOUT__}; echo "# just as reminder, execute manually"'
+
+
+
+
+function __jh_set_java_version {
+
+
+    # save initial dir into var
+
+    init_dir=$( pwd )
+
+
+    # redefine JAVA_HOME
+
+    if [ -z ${1} ]
+
+    then
+
+        echo 'var ${1} should be: 8, 11, 17, 21'
+
+        return 1;
+
+    elif [ ${1} = '8' ]
+
+    then
+
+        command cd ${JAVA_8_HOME}
+
+    elif [ ${1} = '11' ]
+
+    then
+
+        command cd ${JAVA_11_HOME}
+
+    elif [ ${1} = '17' ]
+
+    then
+
+        command cd ${JAVA_17_HOME}
+
+    elif [ ${1} = '21' ]
+
+    then
+
+        command cd ${JAVA_21_HOME}
+
+    else
+
+        echo 'var ${1} should be: 8, 11, 17, 21'
+
+        return 1;
+
+    fi
+
+    JAVA_HOME=$( pwd )
+
+
+    # delete current jdk from PATH
+
+    path_tmp1=$( sed -E 's/:[^:]+java[/]jdk[^:]+//g' <( echo ${PATH} ) ) 
+
+
+    # append executables dir in new JAVA_HOME to PATH
+
+    command cd ./bin
+
+    path_tmp2=${path_tmp1}':'$( pwd )
+
+    PATH=${path_tmp2}
+
+
+    # return to initial dir
+
+    command cd ${init_dir}
+
+
+    # unset temporal vars
+
+    unset path_tmp1 path_tmp2 init_dir
+
+
+    # verifications
+
+    echo '--> set java version'
+
+    # echo
+
+    # echo 'JAVA_HOME: '${JAVA_HOME} # debugging
+
+    # echo
+
+    # echo 'PATH: '$( grep --color=always -P ':[^:]+java/jdk[^:]+' <( echo $PATH ) ) # debugging
+
+    # echo
+
+    java -version
+
+}
+
+
+alias sj8=' __jh_set_java_version 8 '
+
+alias sj11='__jh_set_java_version 11'
+
+alias sj17='__jh_set_java_version 17'
+
+alias sj21='__jh_set_java_version 21'
+
+
+
+
+function __jh_tk { 
+
+    if [ -z ${1} ]
+
+    then 
+
+        if [ -e ./target/*jar ] ; then 
+
+            jarfile=$( ls ./target/*.jar )
+
+            _pid=$( jps -l | grep -P --color=never "${jarfile}" | awk '{ print $1 }' )
+
+            echo ${_pid}
+
+            jps -l | grep -P --color=always "${jarfile}"
+
+            taskkill //f //pid "${_pid}"
+
+        else 
+
+            echo 'file ./target/*.jar must exist or PID must be provided'
+
+        fi
+
+    else 
+
+        _n=$( echo ${1} | grep -P --color=never '^[0-9]+$' )
+
+        if [ -z ${_n} ]
+
+        then 
+
+            _s=$( jps -l | grep --color=never "${1}" )
+
+            echo "${_s}"; 
+
+            _pid=$( echo "${_s}" | awk '{ print $1 }' )
+
+        else 
+
+            _pid=$( echo ${_n} )
+
+        fi
+
+        
+
+        echo "${_pid}"
+
+        taskkill //f //pid "${_pid}"
+
+    fi
+
+    unset _pid _s _n
+
+} 
+
+
+alias tk='__jh_tk'
+
+
+
+
+function __jh_from_pom_set_java_version {
+
+    if [ ! -f './pom.xml' ]
+
+    then
+
+        echo 'no pom.xml in current dir, set default java version and exit'
+
+        __jh_from_number_set_java_version
+
+        return 1
+
+    fi
+
+
+    _p_java_version=$( command grep  'java\.version' pom.xml \
+
+        | sed -E '{ s/[<][\/]?java\.version[>]//ig }' \
+
+        | sed -E '{ s/[ ]*[\t]*//ig }' \
+
+        | sed -E '{ s/1\.//ig }' )
+
+
+    __jh_from_number_set_java_version ${_p_java_version}
+
+
+    unset _p_java_version
+
+}
+
+alias sj='__jh_from_pom_set_java_version'
+
+
+
+
+function __jh_from_number_set_java_version {
+
+    if [ -z ${1} ] ; then
+
+        echo 'param ${1} empty; ${__JH_DEFAULT_JAVA_VERSION__}: '${__JH_DEFAULT_JAVA_VERSION__}
+
+        _p_java_version=${__JH_DEFAULT_JAVA_VERSION__}
+
+    fi
+
+
+    if [ ${_p_java_version} -eq '8' ] ; then
+
+        sj8
+
+    elif [ ${_p_java_version} -eq '17'  ] ; then
+
+        sj17
+
+    elif [ ${_p_java_version} -eq '21'  ] ; then
+
+        sj21
+
+    else
+
+        echo 'param ${1}: '${1}', not valid java version; fallback to default'
+
+        _p_java_version=${__JH_DEFAULT_JAVA_VERSION__}
+
+        __jh_from_number_set_java_version ${_p_java_version}
+
+    fi
+
+
+    unset _p_java_version
+
+}
+
+
+
+
+function __jh_jj { 
+
+
+    if [ -z ${1} ]
+
+    then 
+
+        # set 'localalberto' # sets value of ${1}
+
+        echo 'arg ${1} is empty, using default - __JH_SPRING_PROFILES_ACTIVE__:'\'${__JH_SPRING_PROFILES_ACTIVE__}\'
+
+    else
+
+        __JH_SPRING_PROFILES_ACTIVE__=${1}
+
+        echo 'arg ${1} is populated, __JH_SPRING_PROFILES_ACTIVE__ set to '\'${1}\' 
+
+    fi
+
+    
+
+    if [ -e ./target/*jar ] ; then
+
+        tk
+
+	echo
+
+	
+
+	jarfile=$( ls ./target/*.jar )
+
+    _cmd_str='javaw -Xms'${__JH_XMS__}' -Xmx'${__JH_XMX__}' -Dfile.encoding=UTF-8 -Dspring.profiles.active='${__JH_SPRING_PROFILES_ACTIVE__}' -jar '${jarfile}' & ' # using '' to delimit values in java parameters is faulty-prone	echo "${_cmd_str}"
+
+	eval ${_cmd_str}
+
+	disown ${!}
+
+	unset _cmd_str
+
+    else
+
+        echo 'file ./target/*jar must exist'
+
+    fi
+
+}
+
+alias jj='__jh_jj'
+
+
+
+
+function __jh_jjr { 
+
+
+    if [ -z ${1} ]
+
+    then 
+
+        # set 'localalberto' # sets value of ${1}
+
+        echo 'arg ${1} is empty, using default - __JH_SPRING_PROFILES_ACTIVE__:'\'${__JH_SPRING_PROFILES_ACTIVE__}\'
+
+    else
+
+        __JH_SPRING_PROFILES_ACTIVE__=${1}
+
+        echo 'arg ${1} is populated, __JH_SPRING_PROFILES_ACTIVE__ set to '\'${1}\' 
+
+    fi
+
+
+    if [ -e ./target/*jar ] ; then
+
+	tk
+
+	echo
+
+
+	jarfile=$( ls ./target/*.jar )
+
+	jarlogfile=${__JH_JAR_LOG_HOME__}/$( basename ${jarfile} )'.log'
+
+	echo 'jarfile: '${jarfile}
+
+	echo -n '' > ${jarlogfile}
+
+	echo -e 'jarlogfile cleaned, wc: '$( wc ${jarlogfile} )'\n'
+
+
+    __jh_from_pom_set_java_version
+
+
+	_cmd_str='javaw -Xms'${__JH_XMS__}' -Xmx'${__JH_XMX__}' -Dfile.encoding=UTF-8 -Dspring.profiles.active='${__JH_SPRING_PROFILES_ACTIVE__}' -jar '${jarfile}' &>> '${jarlogfile}' & ' # using '' to delimit values in java parameters is faulty-prone
+
+	echo "${_cmd_str}"
+
+	eval ${_cmd_str}
+
+	disown ${!}
+
+	unset _cmd_str
+
+    else
+
+        echo 'file ./target/*jar must exist'
+
+    fi
+
+}
+
+alias jjr='__jh_jjr'
+
+
+
+
+function __jh_jjrg {
+
+
+    echo 'arg search, ${1}: '\'"${1}"\'
+
+    
+
+    # __JH_JAR_LOG_HOME__=${HOME}'/Desktop/log' # deprecated
+
+    echo 'jar log home: '${__JH_JAR_LOG_HOME__}
+
+
+    if [ -e ./target/*jar ]
+
+    then
+
+        jarfile=$( command ls ./target/*.jar )
+
+        _cmd_str='command grep --color=always -P -i '\'"${1}"\'' '${__JH_JAR_LOG_HOME__}/$( basename $( command ls ./target/*jar ) )'.log'
+
+        echo "${_cmd_str}"
+
+        eval ${_cmd_str}
+
+	__grc__=${?}
+
+        unset _cmd_str
+
+	echo 'grep exit code: '${__grc__}
+
+    else
+
+        echo 'file ./target/*jar must exist'
+
+    fi
+
+    return ${__grc__}
+
+}
+
+alias jjrg='__jh_jjrg'
+
+alias jjrgts='__jh_jjrg '\''tomcat started'\'
+
+
+
+
+function __jh_jl { 
+
+
+    # all java processes
+
+    jps -l
+
+
+    
+
+    # current dir java process
+
+    if [ -e ./target/*jar ]
+
+    then
+
+        jarfile=$( basename $( ls ./target/*jar ) )
+
+        if [ ! -z ${jarfile} ]
+
+        then
+
+            echo
+
+            jps -l | grep --color=always ${jarfile}
+
+        fi
+
+    fi
+
+
+    
+
+    # arg ${1} java process
+
+    if [ ! -z ${1} ]
+
+    then 
+
+        echo
+
+        _s=$( jps -l | grep --color=always -P --color=always "${1}" )
+
+        if [ ! -z "${_s}" ]
+
+        then 
+
+            echo "${_s}"
+
+            else echo '"'${1}'": no results'
+
+        fi
+
+    fi
+
+}
+
+
+alias jl='__jh_jl'
+
+
+
+
+function __grh_g {
+
+
+if [ -e ./gradlew ] ; then
+
+    echo '--> ./gradlew '${*}
+
+    ./gradlew ${*}
+
+else
+
+    echo 'file '\''./gradlew'\'' does not exist in current dir'
+
+fi
+
+
+
+}
+
+
+alias g='__grh_g'
+
+
+
+
+
+function __jh_bootstrap_prop_for_local {
+
+    if [ ! -e ./src/main/resources/bootstrap-alberto.properties ]
+
+    then
+
+        echo 'file '\''./src/main/resources/bootstrap-alberto.properties'\'' does not exist, exit'
+
+        return 1
+
+    fi
+
+    echo '--> '\''bootstrap.properties'\'' for local (copy from '\''alberto'\'' file):'
+
+    command cp -v ./src/main/resources/bootstrap-alberto.properties ./src/main/resources/bootstrap.properties
+
+    cat ./src/main/resources/bootstrap.properties
+
+    echo
+
+}
+
+
+alias bl='__jh_bootstrap_prop_for_local'
+
+
+
+
+function __jh_bootstrap_prop_for_commit {
+
+    if [ ! -e ./src/main/resources/bootstrap.properties ]
+
+    then
+
+        echo 'file '\''./src/main/resources/bootstrap.properties'\'' does not exist, exit'
+
+        return 1
+
+    fi
+
+    echo '--> '\''bootstrap.properties'\'' for commit (restore from '\''dev'\'' branch):'
+
+    command git restore --source dev ./src/main/resources/bootstrap.properties
+
+    cat ./src/main/resources/bootstrap.properties
+
+    echo
+
+}
+
+
+alias bo='__jh_bootstrap_prop_for_commit'
+
+
+
+
+s='--> Java Helper -- updated: ('${__ALIAS_LAST_UPDATE__}') \n'
+
+s=${s}'(commands are better tuned to be executed from maven project root folder)\n'
+
+s=${s}'  jl  : jps -l \n'
+
+s=${s}'  jj  : java -jar \n'
+
+s=${s}'  jjr : java -jar ./${jar_file} > ${log_file} \n'
+
+s=${s}'\n'
+
+s=${s}'  jjrg  : grep -P -i ${1} ${log_file} \n'
+
+s=${s}'  jjrgts: grep -P -i '\''tomcat started'\'' ${log_file} \n'
+
+s=${s}'\n'
+
+s=${s}'  sj  : __jh_from_pom_set_java_version # helper function  \n'
+
+s=${s}'\n'
+
+s=${s}'  mc  : mvn clean \n'
+
+s=${s}'  mci : mvn clean install -U -Dmaven.test.skip=true \n'
+
+s=${s}'  mcc : mvn -T 1C clean compile -Dmaven.test.skip=true --offline \n'
+
+s=${s}'  mcp : mvn -T 1C clean package -Dmaven.test.skip=true --offline \n'
+
+s=${s}'  mp  : mvn -T 1C package -Dmaven.test.skip=true --offline \n'
+
+s=${s}'  mrjr: mvn -T 1C resources:resources jar:jar spring-boot:repackage -Dmaven.test.skip=true --offline \n'
+
+s=${s}'  mrr : mvn resources:resources \n'
+
+s=${s}'  mec : mvn clean eclipse:clean \n'
+
+s=${s}'\n'
+
+s=${s}'  mdt : mvn dependency:tree \n'
+
+s=${s}'  mdr : mvn dependency:resolve -U \n'
+
+s=${s}'  mdp : mvn dependency:purge-local-repository -U \n'
+
+s=${s}'\n'
+
+s=${s}'  g   : ./gradlew \n'
+
+s=${s}'\n'
+
+s=${s}'  tk  : taskkill -- (mvn_folder_no_arg / pid / jps_name) \n'
+
+s=${s}'\n'
+
+s=${s}'  bl  : '\''./src/main/resources/bootstrap.properties'\'' for local \n'
+
+s=${s}'  bo  : '\''./src/main/resources/bootstrap.properties'\'' for commit \n'
+
+_jh_s=${s}
+
+unset s
+
+alias jh='less -f <( echo -e "${_jh_s}")'
+
+
+
+
+# ------------------------------------------------------
+
+# Git Configuration, --system
+
+# ( see sample list output at the end of this file )
+
+# ------------------------------------------------------
+
+
+git config --system color.status 'always'
+
+git config --system color.branch 'always'
+
+git config --system color.log 'true'
+
+git config --system color.diff 'auto'
+
+git config --system color.ui 'true'
+
+git config --system color.interactive 'true'
+
+git config --system help.format 'web'
+
+git config --system web.browser 'chrome'
+
+
+
+
+# ------------------------------------------------------
+
+# Git Configuration, --global
+
+# ( see sample list output at the end of this file )
+
+# ------------------------------------------------------
+
+
+# git config --global user.name 'My User Name' # username
+
+# git config --global user.email 'my_user@email.com' # email
+
+git config --global alias.pwd '!pwd' # escape to execute bash
+
+git config --global alias.s 'status'
+
+git config --global alias.a 'add'
+
+git config --global alias.b 'branch'
+
+git config --global alias.bf 'branch --force'
+
+git config --global alias.ch 'checkout'
+
+git config --global alias.d 'diff'
+
+git config --global alias.dc 'diff --cached'
+
+git config --global alias.l 'log --graph --decorate'
+
+git config --global alias.m 'merge'
+
+git config --global alias.ms 'merge --squash'
+
+git config --global alias.ra 'restore --staged'
+
+git config --global alias.ro 'restore --source'
+
+git config --global alias.ri 'rebase --interactive'
+
+git config --global alias.rs 'reset --soft'
+
+
+
+
+# ------------------------------------------------------
+
+# Git-Bash Aliases
+
+# ------------------------------------------------------
+
+
+function __gh_gs { echo '--> *git status' ; git status ; echo ; git log --graph --decorate --color -1 ; echo -e '\n--> git stash list' ; git stash list ; }
+
+alias gs='__gh_gs'
+
+alias gsi='echo "--> git status --ignored"; sleep ${__ALIAS_TIMEOUT__}; git status --ignored'
+
+alias gl='echo "--> git log --graph --decorate"; sleep ${__ALIAS_TIMEOUT__}; git log --graph --decorate'
+
+alias gla='echo "--> git log --graph --decorate --all"; sleep ${__ALIAS_TIMEOUT__}; git log --graph --decorate --all'
+
+alias gl1='echo "--> git log --graph --decorate -1"; sleep ${__ALIAS_TIMEOUT__}; echo ; git log --graph --decorate -1'
+
+alias glnt='echo "--> git log --no-walk --tags"; sleep ${__ALIAS_TIMEOUT__}; echo ; git log --no-walk --tags'
+
+alias glf='echo "--> git ls-files"; sleep ${__ALIAS_TIMEOUT__}; git ls-files'
+
+
+function __gh_gb { echo '--> *git branch' "${@}" ; sleep ${__ALIAS_TIMEOUT__}; git branch ${@} ; echo ; git log --graph --decorate -1 ; }
+
+alias gb='__gh_gb'
+
+alias gbf='__gh_gb --force'
+
+
+function __gh_gbd {
+
+    echo '--> git branch -D <local-branches> -- ${@}: '"${@}"' -- (cancel: ctrl + c)'
+
+    if [ ! -z "${1}" ] ; then
+
+        git branch -D "${@}"
+
+    else
+
+        git branch
+
+        echo
+
+        read -p 'all local branches will be deleted -- continue? (y/n): ' _continue
+
+        if [  ${_continue} = 'y' ] ; then
+
+            git branch --color=never | grep -v '\*' | xargs git branch -D
+
+        else
+
+            echo 'no action performed, exit'
+
+        fi
+
+    fi
+
+}
+
+alias gbd='__gh_gbd'
+
+
+alias gco='echo "--> *git commit"; sleep ${__ALIAS_TIMEOUT__}; git commit'
+
+
+function __gh_gcmh { 
+
+    echo '--> git commit, fast message helper -- ${1}: '\'"${1}"\'' ; ${2}: '\'"${2}"\'' -- (cancel: ctrl + c)'
+
+    echo
+
+    # commit message, depends on ${1}
+
+    if [ ! -z "${1}" ] ; then
+
+        read -p 'single line commit message, edit: ' -e -i "${1}" _new_commit_message
+
+    else
+
+        _current_branch=$(git branch --show-current)
+
+        read -p 'single line commit message, edit: ' -e -i "${_current_branch}"' cont.' _new_commit_message
+
+    fi
+
+    echo
+
+    # commit action, depends on ${2}
+
+    if [ "${2}" = 'amend' ] ; then
+
+        echo '--> git commit --amend -m '\'"${_new_commit_message}"\'
+
+        echo
+
+        git commit --amend -m "${_new_commit_message}"
+
+    else
+
+        echo '--> git commit -m '\'"${_new_commit_message}"\'
+
+        echo
+
+        git commit -m "${_new_commit_message}"
+
+    fi
+
+    # closing steps
+
+    unset _current_branch _new_commit_message _continue
+
+    echo
+
+    git status
+
+    echo
+
+    git log --graph --decorate -2
+
+    echo
+
+    echo 'done!'
+
+}
+
+function __gh_gcm {
+
+    __gh_gcmh "${1}" 'normal'
+
+}
+
+function __gh_gcam {
+
+    __gh_gcmh "${1}" 'amend'
+
+}
+
+alias gcm='__gh_gcm'
+
+alias gcam='__gh_gcam'
+
+
+alias gt='echo "--> git tag"; sleep ${__ALIAS_TIMEOUT__}; git tag'
+
+
+function __gh_gch {
+
+    echo "--> *git checkout # regex helper"
+
+    sleep ${__ALIAS_TIMEOUT__}
+
+    _n=$( git branch --color=never | tr '*' ' ' | grep -P -i -c "${1}" )
+
+    if [ ${_n} -eq '1' ] ; then
+
+        git branch --color=never | tr '*' ' ' | grep -P -i --color=never "${1}" | xargs git checkout
+
+    else 
+
+        echo 'no checkout performed -- matching branches: '${_n}
+
+        git branch --color=never | tr '*' ' ' | grep -P -i --color=always "${1}"
+
+    fi
+
+}
+
+alias gch='__gh_gch'
+
+
+function __gh_ga { echo '--> git add' "${@}" ; sleep ${__ALIAS_TIMEOUT__} ; git add "${@}" ; echo ; gs ; } 
+
+alias ga='__gh_ga'
+
+function __gh_gra { echo '--> *git restore --staged' "${@}" ; sleep ${__ALIAS_TIMEOUT__} ; git restore --staged "${@}" ; echo ; gs ; }
+
+alias gra='__gh_gra'
+
+alias gd='echo "--> *git diff"; sleep ${__ALIAS_TIMEOUT__}; git diff'
+
+alias gdc='echo "--> *git diff --cached"; sleep ${__ALIAS_TIMEOUT__}; git diff --cached'
+
+alias gro='echo "--> *git restore --source "; sleep ${__ALIAS_TIMEOUT__}; git restore --source'
+
+
+alias gm='echo "--> *git merge" ; sleep ${__ALIAS_TIMEOUT__} ; git merge'
+
+alias gms='echo "--> *git merge --squash" ; sleep ${__ALIAS_TIMEOUT__} ; git merge --squash'
+
+# alias gri='echo "--> *git rebase --interactive" ; sleep ${__ALIAS_TIMEOUT__} ; git rebase --interactive' # deprecated
+
+alias grs='echo "--> *git reset --soft" ; sleep ${__ALIAS_TIMEOUT__} ; git reset --soft'
+
+
+function __gh_gf { echo '--> git fetch --tags' "${@}" ; sleep ${__ALIAS_TIMEOUT__} ; git fetch --tags "${@}" ; echo ; gs ; } 
+
+alias gf='__gh_gf'
+
+alias gff='__gh_gf --force'
+
+
+alias gpl='echo "--> git pull"; sleep ${__ALIAS_TIMEOUT__}; git pull'
+
+function __gh_gps { echo '--> git push' "${@}" ; sleep ${__ALIAS_TIMEOUT__} ; git push "${@}" ; }
+
+alias gps='__gh_gps'
+
+
+alias gpss='echo "--> git push origin --set-upstream <current-branch>"; sleep ${__ALIAS_TIMEOUT__}; git push origin --set-upstream $( git branch --show-current )'
+
+alias gpsd='echo "--> git push origin --delete <current-branch>"; sleep ${__ALIAS_TIMEOUT__}; git push origin --delete $( git branch --show-current )'
+
+alias gpsf='echo "--> git push origin --force <current-branch>"; sleep ${__ALIAS_TIMEOUT__}; git push origin --force $( git branch --show-current )'
+
+
+alias gz='echo "--> git stash"; sleep ${__ALIAS_TIMEOUT__}; git stash'
+
+alias gzl='echo "--> git stash list"; sleep ${__ALIAS_TIMEOUT__}; git stash list'
+
+alias gzs='echo "--> git stash show --stat -p"; sleep ${__ALIAS_TIMEOUT__}; git stash show --stat -p'
+
+alias gzp='echo "--> git stash pop"; sleep ${__ALIAS_TIMEOUT__}; git stash pop'
+
+alias gza='echo "--> git stash apply"; sleep ${__ALIAS_TIMEOUT__}; git stash apply'
+
+alias gzd='echo "--> git stash drop"; sleep ${__ALIAS_TIMEOUT__}; git stash drop'
+
+alias gzc='echo "--> git stash clear"; sleep ${__ALIAS_TIMEOUT__}; git stash clear'
+
+
+alias gmr='echo "--> git maintenance run"; sleep ${__ALIAS_TIMEOUT__}; git maintenance run'
+
+
+
+
+s='--> Git Helper ('${__ALIAS_LAST_UPDATE__}') \n'
+
+s=${s}'  (*: git alias available) \n' 
+
+s=${s}'  gs   : git status \n' 
+
+s=${s}'  gsi  : git status --ignored \n' 
+
+s=${s}'  gl*  : git log --graph --decorate \n'
+
+s=${s}'  gl1  : git log --graph --decorate -1 \n'
+
+s=${s}'  gla  : git log --graph --decorate --all  \n'
+
+s=${s}'  glnt : git log --no-walk --tags  \n'
+
+s=${s}'  glf  : git ls-files \n'
+
+s=${s}'\n'
+
+s=${s}'  gb*  : git branch \n'
+
+s=${s}'  gbf* : git branch --force \n'
+
+s=${s}'  gbd  : git branch -D <local-branches> # delete all, local helper \n'
+
+s=${s}'  gt   : git tag \n'
+
+s=${s}'\n'
+
+s=${s}'  gch* : git checkout # regex helper \n'
+
+s=${s}'  ga*  : git add \n'
+
+s=${s}'  gra* : git restore --staged \n'
+
+s=${s}'  gd*  : git diff \n'
+
+s=${s}'  gdc* : git diff --cached \n'
+
+s=${s}'  gco* : git commit # raw, primitive \n'
+
+s=${s}'  gcm  : git commit # fast message helper, mode '\'normal\'' \n'
+
+s=${s}'  gcam : git commit # fast message helper, mode '\'amend\'' \n'
+
+s=${s}'  gro* : git restore --source \n'
+
+s=${s}'\n'
+
+s=${s}'  gm*  : git merge \n'
+
+s=${s}'  gms* : git merge --squash \n'
+
+s=${s}'  gri* : git rebase --interactive \n'
+
+s=${s}'  grs* : git reset --soft \n'
+
+s=${s}'\n'
+
+s=${s}'  gf  : git fetch --tags \n'
+
+s=${s}'  gff : git fetch --tags --force \n'
+
+s=${s}'\n'
+
+s=${s}'  gpl : git pull \n'
+
+s=${s}'\n'
+
+s=${s}'  gps : git push \n'
+
+s=${s}'  gpss: git push origin --set-upstream <current_branch> \n'
+
+s=${s}'  gpsd: git push origin --delete <current_branch> \n'
+
+s=${s}'  gpsf: git push origin --force <current_branch> \n'
+
+s=${s}'\n'
+
+s=${s}'  gz  : git stash \n'
+
+s=${s}'  gzl : git stash list \n'
+
+s=${s}'  gzs : git stash show --stat -p \n'
+
+s=${s}'  gzp : git stash pop \n'
+
+s=${s}'  gza : git stash apply \n'
+
+s=${s}'  gzd : git stash drop \n'
+
+s=${s}'  gzc : git stash clear \n'
+
+s=${s}'\n'
+
+s=${s}'  gmr : git maintenance run \n'
+
+_gh_s=${s}
+
+unset s
+
+alias gh='less -f <( echo -e "${_gh_s}" )'
+
+
+
+
+# ------------------------------------------------------
+
+# Specific Windows OS Aliases
+
+# ------------------------------------------------------
+
+
+uname | command grep -P -i '(mingw|window)' > /dev/null
+
+
+__kernel_is_windows__=$( echo ${?} )
+
+
+if [ ${__kernel_is_windows__} -eq '0'  ]; then
+
+    alias wsl='clear ; winpty wsl'
+
+    alias s='echo "--> start"; sleep ${__ALIAS_TIMEOUT__}; start'
+
+    alias python='winpty python'
+
+    alias ipython='winpty ipython'
+
+    # notepad plus plus launcher
+
+    function __npp {
+
+        echo 'notepad++ launcher -- begin...'
+
+        notepad++ ${*} & 
+
+        disown ${!} 
+
+        echo 'notepad++ launcher -- done!'
+
+    }
+
+    alias npp='__npp'
+
+    # eclipse ide launcher
+
+    function __jh_ecl {
+
+        echo 'eclipse launcher -- begin...'
+
+        __pwd__=$( pwd ) 
+
+        __eh__=''
+
+        if [ -z ${1} ]
+
+        then
+
+            echo 'ECLIPSE_HOME: '${ECLIPSE_HOME}
+
+            __eh__=${ECLIPSE_HOME}
+
+        elif [ ${1} = 'old' ]
+
+        then
+
+            echo 'ECLIPSE_OLD_HOME: '${ECLIPSE_OLD_HOME}
+
+            __eh__=${ECLIPSE_OLD_HOME}
+
+        elif [ ${1} = 'sts' ]
+
+        then
+
+            echo 'STS_HOME: '${STS_HOME}
+
+            __eh__=${STS_HOME}
+
+        else
+
+            echo 'parameter ${1} not valid; should be empty or "old"'
+
+            return 1
+
+        fi
+
+        command cd ${__eh__}
+
+        if [ ${1} = 'sts'  ]
+
+        then
+
+            ./SpringToolSuite4 &
+
+        else
+
+            ./eclipse & 
+
+        fi
+
+        disown ${!}
+
+        command cd ${__pwd__}
+
+        unset __pwd__ __eh__
+
+        echo 'eclipse launcher -- done!'
+
+    }
+
+    alias ecl=' __jh_ecl'
+
+    alias eclo='__jh_ecl old'
+
+    alias sts=' __jh_ecl sts'
+
+fi
+
+
+unset __kernel_is_windows__
+
+
+
+
+# ------------------------------------------------------
+
+# Specific Linux OS Aliases
+
+# ------------------------------------------------------
+
+
+uname | command grep -P -i '(linux)' > /dev/null
+
+
+__kernel_is_linux__=$( echo $? )
+
+
+if [ ${__kernel_is_linux__} -eq '0'  ]; then
+
+    alias xo='echo "--> xdg-open"; sleep ${__ALIAS_TIMEOUT__}; xdg-open'
+
+fi
+
+
+unset __kernel_is_linux__
+
+
+
+
+# ------------------------------------------------------
+
+# ZeroHelper loader
+
+# ------------------------------------------------------
+
+
+function __zh_load_zerohelper {
+
+    # Alias defined in this script cannot be overriden in zerohelper scripts.
+
+    # Alias defined in zerohelper scripts can be overriden among such scripts.
+
+    # Check alias 0z in zerohelper scripts (alias overriding test).
+
+    zh_found_file=$( command ls | command grep zerohelper )
+
+    zh_found_file_exit_code=${?}
+
+    if [ ${zh_found_file_exit_code} -eq '0' ] ; then
+
+        if [ ${ZH_CURRENT_FILE} = ${zh_found_file} ] ; then
+
+            echo 'zerohelp file exists, ZH_CURRENT_FILE is equal: do nothing'
+
+            echo
+
+            command source ${ZH_CURRENT_FILE}
+
+            eval ${ZH_ZEROHELPER_INIT}
+
+        else
+
+            echo 'zerohelp file exists, ZH_CURRENT_FILE is different: do cleanup and reload'
+
+            echo
+
+            ZH_CURRENT_ALIASES=' '
+
+            ZH_CURRENT_FILE=${zh_found_file}
+
+            command source ${ZH_CURRENT_FILE}
+
+            eval ${ZH_ZEROHELPER_INIT}
+
+        fi
+
+    else
+
+        echo 'zerohelp file does not exist: do cleanup'
+
+        ZH_CURRENT_FILE='_'
+
+        ZH_ZEROHELPER_INIT=' '
+
+        ZH_CURRENT_ALIASES=' '
+
+        echo 'no zerohelper file in this folder'
+
+    fi
+
+}
+
+alias 0='__zh_load_zerohelper'
+
+
+
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# GIT CONFIG - Sample from Windows-10, 2024-11-15
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+### git config --system --list | sort
+
+# color.branch=always
+
+# color.diff=auto
+
+# color.interactive=true
+
+# color.log=true
+
+# color.status=always
+
+# color.ui=true
+
+# core.autocrlf=true
+
+# core.fscache=true
+
+# core.symlinks=false
+
+# credential.helper=!"C:/path-to-git/mingw64/bin/git-credential-manager-core.exe"
+
+# diff.astextplain.textconv=astextplain
+
+# filter.lfs.clean=git-lfs clean -- %f
+
+# filter.lfs.process=git-lfs filter-process
+
+# filter.lfs.required=true
+
+# filter.lfs.smudge=git-lfs smudge -- %f
+
+# help.format=web
+
+# init.defaultbranch=main
+
+# rebase.autosquash=true
+
+# web.browser=chrome
+
+
+### git config --global --list | sort
+
+# alias.a=add
+
+# alias.b=branch
+
+# alias.ch=checkout
+
+# alias.d=diff
+
+# alias.dc=diff --cached
+
+# alias.l=log --graph --decorate
+
+# alias.m=merge
+
+# alias.ms=merge --squash
+
+# alias.pwd=!pwd
+
+# alias.ra=restore --staged
+
+# alias.ri=rebase --interactive
+
+# alias.ro=restore --source
+
+# alias.rs=reset --soft
+
+# alias.s=status
+
+# core.autocrlf=true
+
+# credential.helperselector.selected=manager-core
+
+# credential.https://source.some-repo-01.com.provider=generic
+
+# credential.https://gitsrc.some-repo-02.com.provider=generic
+
+# maintenance.repo=C:/path-to-local-repo-01/my-repo-01
+
+# maintenance.repo=C:/path-to-local-repo-02/my-repo-02
+
+# user.email=my_user_name@email.com
+
+# user.name=My User Name
+
+
+
