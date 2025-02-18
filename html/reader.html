@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+
+<!-- updated: 2025-02-18 03:00 GMT-00:00 -->
+
+<link rel="icon" href="../img/favicon_tilde.ico">
+
+<title>~/</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<style>
+
+div#mainContent {
+font-family: 'Lucida Console';
+color: #ffffff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="mainContent">initial content</div>
+
+<script>
+// url param
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const source = urlParams.get('source')
+console.log(source);
+
+
+// fetch source
+// fetch("./../txt/" + "mariadb-mysql-help.txt") // does not work
+// fetch("https://alberto-romero-eng.github.io/txt/" + "mariadb-mysql-help" + ".txt")
+fetch("https://alberto-romero-eng.github.io/txt/" + source + ".txt")
+.then( (response) => { console.log(response); return response; } )
+.then( (response) => { promise = response.text() ; console.log(promise) ; return promise; } )
+.then( (data) => { document.getElementById('mainContent').innerText = data; } ) 
+
+</script>
+
+</body>
+
+</html>

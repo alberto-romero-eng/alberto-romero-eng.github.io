@@ -1,3 +1,5 @@
+/* updated: 2025-02-18 03:00 GMT-00:00 */
+
 * {
     font-family: Arial;
     font-size: 12pt;
@@ -6,21 +8,42 @@
 body {
     width: 100%;
     margin: 0px;
+    background-color: #222222;
 }
 
 p {
     margin: 15px;
+    color: #ffffff;
 }
 
 
 li {
     margin: 15px;
+    color: #ffffff;
 }
 
 h1,h2, h3, h4, h5 {
     margin: 45px 15px 15px;
+    color: #ffffff;
 }
 
 hr {
     margin: 30px 15px 30px;
 }
+
+a:link {
+    color: #9999ff;
+}
+
+a:visited {
+    color: #9999ff;
+}
+
+a:hover {
+    color: #ffff77;
+}
+
+a:active {
+    color: #ffff00;
+}
+
