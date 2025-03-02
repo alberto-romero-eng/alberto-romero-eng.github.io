@@ -1,4 +1,4 @@
-# BHS -- updated: 2025-01-24 09:44
+# BHS -- updated: 2025-03-01 04:41
 
 # {0} -- execute 'hi' for index
 
@@ -158,7 +158,7 @@ kubectl:  Kubernetes client.  Examples:  # (1) KUBECTL GENERAL ALIAS OR HELPER V
 
 l:
 
-less:  Buffer file for reading on secreen.  Options below described are for prompt at screen bottom.  Options:  -R raw or display colors.  -M long prompt, works along option -n.  -m short prompt.  -N line number column.  -n line number in prompt.  -J status column.  -S chop long lines, line wrap.  -s hide multiple empty lines.  -I case insensitive search.  -G highlight search.  Actions:  / - search forward.  ? - search backward.  n - next search result.  N -  previous search result.  & -  filter or grep.  [shift] + [f] - follow mode (tail like).
+less:  Buffer file for reading on secreen.  Options below described are for prompt at screen bottom.  Options:  -R raw or display colors.  -M long prompt, works along option -n.  -m short prompt.  -N line number column.  -n line number in prompt.  -J status column.  -S chop long lines, line wrap.  -s hide multiple empty lines.  -I case insensitive search.  -G highlight search.  -x tab width.  Actions:  / - search forward.  ? - search backward.  n - next search result.  N -  previous search result.  & -  filter or grep.  [shift] + [f] - follow mode (tail like).
 
 let:  Perform integer arithmetic calculations, assign result to variable.  Examples:  let 'b=2^16-1' 'mins=total_secs/60' 'secs=total_sec%60'  ;  
 
