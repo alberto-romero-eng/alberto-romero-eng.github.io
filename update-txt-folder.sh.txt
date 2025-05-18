@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2024-12-15 15:45
+# UPDATE TXT FOLDER -- updated: 2025-05-18 11:35
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -54,6 +54,7 @@ command cp -v ${__IO_SRC_APPS_DIR__}/elasticsearch-kibana-help.txt ${__IO_TARGET
 
 command cp -v ${__IO_SRC_APPS_DIR__}/eclipse-help.txt ${__IO_TARGET_DIR__}
 command cp -v ${__IO_SRC_APPS_DIR__}/eclipse.ini.sample.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/springboot-help.txt ${__IO_TARGET_DIR__}
 
 
 command cp -v ${__IO_SRC_APPS_DIR__}/mariadb-mysql-help.txt ${__IO_TARGET_DIR__}

@@ -1,4 +1,4 @@
-# BHS -- updated: 2025-03-01 04:41
+# BHS -- updated: 2025-03-29 02:55
 
 # {0} -- execute 'hi' for index
 
@@ -28,7 +28,7 @@ cmd:  See 'cmd.exe', to execute sentences from git-bash.
 
 cmp:  Compare two binary files.  See 'comm' to compare text files.  Example: cmp file1.bin file2.bin  ;
 
-comm:  Compare two text files.  Requires previous sorting.  Writes three columns: inFileA, inFileB, inFileAAndFileB.  See 'cmp' for binary files comparison.
+comm:  Compare two text files.  Requires previous sorting.  Writes three columns: inFileA, inFileB, inFileAAndFileB.  See 'cmp' for binary files comparison.  See also: sort, uniq, comm, join, cut, diff, cmp.
 
 command:  Allow to use a native command, bypassing an alias/function if set.  Builtins have higher precedence than executables, but can be disabled (see 'enable').  For diagnostics, see: 'alias <comm>', 'declare -f <comm>', 'which <comm>', 'enable -n'.  Examples:  command ls # 'ls' is usually aliased as 'ls color=always'  ;  command pwd --help # try with 'pwd' as builtin and as executable  ;  
 
@@ -38,7 +38,7 @@ crontab:
 
 curl:  Make requests from bash or commandline.  Options:  --request,-X GET, POST, other.  --header,-H header.  --data,-d data, use @ to source from file.  --url url.  --trace-time print timestamps with each socket line.  --max-time set a max time (seconds) to wait for server response (to request).  --connection-timeout set a timeout for establishing connection with server.  --local-port set a value or max-min value range for client port.  -0 like header 'connection: close'.  -s quiet mode, do not show progress.  -i show headers.  -v verbose.
 
-cut:  Print fields separated by a delimiter.  Options:  -d delimiter.  -f fields list.  See also: awk, join.  Examples:  echo -e '1,A,a\n2,B,b\n3,D,d\n' | cut -d, -f1,2,3  ;  
+cut:  Print fields separated by a delimiter.  See also: sort, uniq, comm, join, cut, diff, cmp, awk.  Options:  -d delimiter.  -f fields list.  Examples:  echo -e 'i_A_a\nii_B_b\niii_C_c\n' | cut -d '_' -f '1 3'  ;  echo -e 'i_A_a\nii_B_b\niii_C_c\n' | cut -d_ -f1,3  ;
 
 d:
 
@@ -148,7 +148,7 @@ j:
 
 jar:  Perform 'create', 'extract' or 'list' operations on Java ARchive files.  Also useful to handle ZIP files.  Sequence: jar {ctxui}[vfmn0PMe] [jar-file] [manifest-file] [entry-point] [-C dir] file(s).  See also: 'tar'.  Actions:  -c create new JAR file.  -t list contents of JAR file.  -x extract from JAR file.  Options:  -v verbose output.  -f JAR file on which -c, -x or -t will operate.  -m file with info to include in manifest.  -0 no compression.  -M do not include manifest.  -e main class to indicate in manifest.  -C change directory for contents inclusion.  Examples:  jar -tf file.jar # list content in file.jar  ;  jar -xf file.jar # extract content from file.jar  ;  jar -cf file.jar $( ls ) # create file.jar containing all files (and folders) in current dir  ;  jar -cf file.jar -C ./src/ $( cd src ; ls ) # create file.jar containing all files (and folders) in dir src  ;  jar -cvfm file.jar manifest.txt src  ;  jar -cf0M file.zip src # create standard zip file (no compression, no manifest)  ;  
 
-join:  Join two files, according to a common field (default: first field ).  See also: awk, cut.  Options:  -t field separator.  Examples:  join -t ',' file1.txt file2.txt  ;  join -t '|' <(echo '1|Juan') <(echo '1|Arauca')  ;  
+join:  Join two files, according to a common field (default: first field ).  See also: sort, uniq, comm, join, cut, diff, cmp, awk.  Options:  -t field separator.  Examples:  join -t ',' file1.txt file2.txt  ;  join -t '|' <(echo '1|Juan') <(echo '1|Arauca')  ;
 
 jp2a:  Convert jpeg to ascii.
 
@@ -179,6 +179,10 @@ mount:  Without params lists mounted points and info. With params mount points o
 mountvol:  Windows command, equivalent to Unix 'mount'.  With no args, shows help and lists volumes available, mounted and not mounted.  See also: cmd.exe.  Options:  /P unmount.  /E enable automatic mountig of new volumes.  Examples:  cmd.exe /C 'mountvol'  ;  cmd.exe /C 'mountvol F:\ /P' # unmount F drive  ;  cmd.exe /C 'mountvol F:\ \\?\Volume{96d242db-1b4f-11ed-ab66-d8cb8a835833}\' # mount specified volume as F drive  ;  cmd.exe /C 'mountvol /E' # enable automatic mounting of new volumes  ;  
 
 mvn:  Maven, java project and dependency management.  Examples:  mvn -version  ;  mvn -help # command itself, not pom.xml  ;  mvn help:effective-pom | grep -i -n 'maven-.*plugin' # available plugins in pom.xml  ;  mvn jar:help  ;  mvn dependency:help  ;  mvn eclipse:help  ;  mvn spring-boot:help -Ddetail  ;  mvn help:describe -Dcmd=surefire:test -Ddetail  ;  mvn help:describe -Dcmd=spring-boot:repackage  ;  mvn dependency:list  ;  mvn dependency:tree  ;  mvn dependency:resolve -U # update dependencies  ;  mvn dependency:purge-local-repository # delete .m2 files, re-download them  ;  mvn clean package -Dmaven.test.skip=true # compile, make jar  ;  mvn resources:resources jar:jar spring-boot:repackage -Dmaven.test.skip=true # do not compile, use current target folder content, make jar  ;  mvn clean install -U -Dmaven.test.skip=true # update dependencies  ;  mvn eclipse:clean # delete eclipse project files  ;  mvn -T 1C package --offline # use multithread (1 per Core), do not check online repositories  ;  
+
+mysql:  MySql database client.  See also: mysqldump.  Options:  -p prompt for password.  --password='1234' inline password.  Examples:  mysql --user root --host localhost --port 3306 -p < input.sql  ;  echo 'select 1 as my_int' | mysql --user root --host localhost --port 3306 -p  ;  mysql --user root --host localhost --port 3306 -p < <( echo 'select 1 as my_int' )  ;
+
+mysqldump:  Client for database dump / export.  See also: mysql.  Example:  mysqldump --skip-lock-tables --routines --add-drop-table --disable-keys --extended-insert --user root --host localhost --port 3306 -p 'dbname' > outdump.sql  ;
 
 n:
 
@@ -230,7 +234,7 @@ seq:  Print sequence.  Examples: seq 5  ;  seq 0 5  ;  seq 0  0.5  5  ;
 
 shopt:  Manage shell options.  Setting 'globstar' (**) is usually disabled, useful when realpath's are required.  See also: basename, dirname, realpath, find.  Actions:  -p print all shell settings.  -s [option] enable (set) shell option.  -u [option] disable (unset) shell option.  Examples:  shopt -p  ;  shopt -s globstar ; echo ** # enable globstar  ;  shopt -u globstar ; echo ** # disable globstar  ;  
 
-sort:  Order file lines, ascii criteria
+sort:  Order file lines, ascii criteria.  See also: sort, uniq, comm, join, cut, diff, cmp.
 
 source:  Executes bash script as current shell/process, not as sub-shell/sub-process.
 
@@ -262,7 +266,7 @@ ulimit:  Show/modify shell resource limits.  Options:  -a list all resource limi
 
 umount:  Unmount drive.  See also: 'mount', lsblk, 'mountvol' (windows).  Examples:  umount /dev/sdb  ;   
 
-uniq:  In a sorted file, eliminate duplicate lines.  Example: uniq file.sort.txt.old > file.sort.uniq.txt  ;
+uniq:  In a sorted file, eliminate duplicate lines.  See also: sort, uniq, comm, join, cut, diff, cmp.  Example: uniq file.sort.txt.old > file.sort.uniq.txt  ;
 
 unix2dos:  Convert txt from unix to dos.
 

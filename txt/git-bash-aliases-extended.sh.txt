@@ -52,7 +52,7 @@
 # ----------------------------------
 
 
-__ALIAS_LAST_UPDATE__='2025-03-02 18:31'
+__ALIAS_LAST_UPDATE__='2025-04-01 08:48'
 
 __ALIAS_TIMEOUT__='0.3'
 
@@ -63,7 +63,7 @@ __JH_XMS__='8m'
 
 __JH_XMX__='256m'
 
-__JH_SPRING_PROFILES_ACTIVE__='alberto,albertodblocal' # comma separated values, no whitespace
+__JH_SPRING_PROFILES_ACTIVE__='alberto,albertolocal,albertodiff' # comma separated values, no whitespace; 'default' is first and implicit
 
 __JH_JAR_LOG_HOME__=${HOME}'/Desktop/log'
 
@@ -512,52 +512,58 @@ function __jh_set_java_version {
 
     # redefine JAVA_HOME
 
-    if [ -z ${1} ]
+    case ${1} in
 
-    then
+		'' )
 
-        echo 'var ${1} should be: 8, 11, 17, 21'
+			echo 'param ${1} cannot be empty'
 
-        return 1;
+			return 1
 
-    elif [ ${1} = '8' ]
+			;;
 
-    then
+		'8' )
 
-        command cd ${JAVA_8_HOME}
+			command cd ${JAVA_8_HOME}
 
-    elif [ ${1} = '11' ]
+			;;
 
-    then
+		'11' )
 
-        command cd ${JAVA_11_HOME}
+			command cd ${JAVA_11_HOME}
 
-    elif [ ${1} = '17' ]
+			;;
 
-    then
+		'17' )
 
-        command cd ${JAVA_17_HOME}
+			command cd ${JAVA_17_HOME}
 
-    elif [ ${1} = '21' ]
+			;;
 
-    then
+		'21' )
 
-        command cd ${JAVA_21_HOME}
+			command cd ${JAVA_21_HOME}
 
-    else
+			;;
 
-        echo 'var ${1} should be: 8, 11, 17, 21'
+		'NONE' | * )
 
-        return 1;
+			echo 'param ${1} invalid; accepted values: 8, 11, 17, 21'
 
-    fi
+			return 1
+
+			;;
+
+    esac
 
     JAVA_HOME=$( pwd )
 
 
     # delete current jdk from PATH
 
-    path_tmp1=$( sed -E 's/:[^:]+java[/]jdk[^:]+//g' <( echo ${PATH} ) ) 
+    # path_tmp1=$( sed -E 's/:[^:]+java[/]jdk[^:]+//g' <( echo ${PATH} ) ) # until 2025-03-21; 'java' in path
+
+	path_tmp1=$( sed -E 's/:[^:]+[/]jdk[^:]+//g' <( echo ${PATH} ) )
 
 
     # append executables dir in new JAVA_HOME to PATH
@@ -1006,7 +1012,9 @@ function __jh_bootstrap_prop_for_local {
 
     then
 
-        echo 'file '\''./src/main/resources/bootstrap-alberto.properties'\'' does not exist, exit'
+        echo '--> file '\''./src/main/resources/bootstrap-alberto.properties'\'' does not exist, exit'
+
+        echo
 
         return 1
 
@@ -1023,7 +1031,7 @@ function __jh_bootstrap_prop_for_local {
 }
 
 
-alias bl='__jh_bootstrap_prop_for_local'
+alias old_bl='__jh_bootstrap_prop_for_local'
 
 
 
@@ -1034,7 +1042,9 @@ function __jh_bootstrap_prop_for_commit {
 
     then
 
-        echo 'file '\''./src/main/resources/bootstrap.properties'\'' does not exist, exit'
+        echo '--> file '\''./src/main/resources/bootstrap.properties'\'' does not exist, exit'
+
+        echo
 
         return 1
 
@@ -1048,10 +1058,75 @@ function __jh_bootstrap_prop_for_commit {
 
     echo
 
+    echo
+
 }
 
 
-alias bo='__jh_bootstrap_prop_for_commit'
+alias old_bo='__jh_bootstrap_prop_for_commit'
+
+
+
+
+function __jh_application_yml_for_local {
+
+    if [ ! -e ./src/main/resources/application-bsalberto.yml ]
+
+    then
+
+        echo '--> file '\''./src/main/resources/application-bsalberto.yml'\'' does not exist, exit'
+
+        return 1
+
+    fi
+
+    echo '--> '\''application.yml'\'' for local (copy from '\''bsalberto'\'' file):'
+
+    command cp -v ./src/main/resources/application-bsalberto.yml ./src/main/resources/application.yml
+
+    cat ./src/main/resources/application.yml
+
+    echo
+
+}
+
+
+alias al='__jh_application_yml_for_local'
+
+
+
+
+function __jh_applicaton_yml_for_commit {
+
+    if [ ! -e ./src/main/resources/application.yml ]
+
+    then
+
+        echo '--> file '\''./src/main/resources/application.yml'\'' does not exist, exit'
+
+        return 1
+
+    fi
+
+    echo '--> '\''application.yml'\'' for commit (restore from '\''dev'\'' branch, first 8 lines):'
+
+    command git restore --source dev ./src/main/resources/application.yml
+
+    cat ./src/main/resources/application.yml | head -8
+
+    echo
+
+}
+
+
+alias ao='__jh_applicaton_yml_for_commit'
+
+
+
+
+alias bl='old_bl ; al'
+
+alias bo='old_bo ; ao'
 
 
 
