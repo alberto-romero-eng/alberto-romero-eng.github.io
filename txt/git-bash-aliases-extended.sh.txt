@@ -52,28 +52,30 @@
 # ----------------------------------
 
 
-__ALIAS_LAST_UPDATE__='2025-04-01 08:48'
+__ALIAS_LAST_UPDATE__='2025-05-25 13:10'
 
 __ALIAS_TIMEOUT__='0.3'
-
-
-__JH_DEFAULT_JAVA_VERSION__='8' # valid values: '8', '17', '21' (formal value in pom.xml for '8' is '1.8')
-
-__JH_XMS__='8m'
-
-__JH_XMX__='256m'
-
-__JH_SPRING_PROFILES_ACTIVE__='alberto,albertolocal,albertodiff' # comma separated values, no whitespace; 'default' is first and implicit
-
-__JH_JAR_LOG_HOME__=${HOME}'/Desktop/log'
 
 
 __BHS_FILE__=${HOME}/'.bash-help-src'
 
 
-__JH_XMS_DEFAULT__=${__JH_XMS__}
+__JH_JAVA_VERSION_DEFAULT__='8' # valid values: '8', '17', '21' (formal value in pom.xml for '8' is '1.8')
 
-__JH_XMX_DEFAULT__=${__JH_XMX__}
+__JH_XMS_DEFAULT__='8m'
+
+__JH_XMX_DEFAULT__='256m'
+
+__JH_JAR_LOG_HOME_DEFAULT__=${HOME}'/Desktop/log'
+
+__JH_SPRING_PROFILES_ACTIVE_DEFAULT__='albertodefault,albertopre,albertodiff' # comma separated values, no whitespace; 'default' is first and implicit
+
+
+__JH_XMS__=${__JH_XMS_DEFAULT__}
+
+__JH_XMX__=${__JH_XMX_DEFAULT__}
+
+__JH_SPRING_PROFILES_ACTIVE__=${__JH_SPRING_PROFILES_ACTIVE_DEFAULT__}
 
 
 __JH_WM_HOME__=${HOME}'/Desktop/dm-git-java'
@@ -717,9 +719,9 @@ function __jh_from_number_set_java_version {
 
     if [ -z ${1} ] ; then
 
-        echo 'param ${1} empty; ${__JH_DEFAULT_JAVA_VERSION__}: '${__JH_DEFAULT_JAVA_VERSION__}
+        echo 'param ${1} empty; ${__JH_JAVA_VERSION_DEFAULT__}: '${__JH_JAVA_VERSION_DEFAULT__}
 
-        _p_java_version=${__JH_DEFAULT_JAVA_VERSION__}
+        _p_java_version=${__JH_JAVA_VERSION_DEFAULT__}
 
     fi
 
@@ -740,7 +742,7 @@ function __jh_from_number_set_java_version {
 
         echo 'param ${1}: '${1}', not valid java version; fallback to default'
 
-        _p_java_version=${__JH_DEFAULT_JAVA_VERSION__}
+        _p_java_version=${__JH_JAVA_VERSION_DEFAULT__}
 
         __jh_from_number_set_java_version ${_p_java_version}
 
@@ -835,7 +837,7 @@ function __jh_jjr {
 
 	jarfile=$( ls ./target/*.jar )
 
-	jarlogfile=${__JH_JAR_LOG_HOME__}/$( basename ${jarfile} )'.log'
+	jarlogfile=${__JH_JAR_LOG_HOME_DEFAULT__}/$( basename ${jarfile} )'.log'
 
 	echo 'jarfile: '${jarfile}
 
@@ -877,9 +879,9 @@ function __jh_jjrg {
 
     
 
-    # __JH_JAR_LOG_HOME__=${HOME}'/Desktop/log' # deprecated
+    # __JH_JAR_LOG_HOME_DEFAULT__=${HOME}'/Desktop/log' # deprecated
 
-    echo 'jar log home: '${__JH_JAR_LOG_HOME__}
+    echo 'jar log home: '${__JH_JAR_LOG_HOME_DEFAULT__}
 
 
     if [ -e ./target/*jar ]
@@ -888,7 +890,7 @@ function __jh_jjrg {
 
         jarfile=$( command ls ./target/*.jar )
 
-        _cmd_str='command grep --color=always -P -i '\'"${1}"\'' '${__JH_JAR_LOG_HOME__}/$( basename $( command ls ./target/*jar ) )'.log'
+        _cmd_str='command grep --color=always -P -i '\'"${1}"\'' '${__JH_JAR_LOG_HOME_DEFAULT__}/$( basename $( command ls ./target/*jar ) )'.log'
 
         echo "${_cmd_str}"
 
@@ -980,7 +982,7 @@ alias jl='__jh_jl'
 
 
 
-function __grh_g {
+function __gwh_gw {
 
 
 if [ -e ./gradlew ] ; then
@@ -1000,13 +1002,13 @@ fi
 }
 
 
-alias g='__grh_g'
+alias gw='__gwh_gw'
 
 
 
 
 
-function __jh_bootstrap_prop_for_local {
+function __jh_sb2_bootstrap_prop_for_local {
 
     if [ ! -e ./src/main/resources/bootstrap-alberto.properties ]
 
@@ -1031,12 +1033,12 @@ function __jh_bootstrap_prop_for_local {
 }
 
 
-alias old_bl='__jh_bootstrap_prop_for_local'
+alias _jh_sb2_bl='__jh_sb2_bootstrap_prop_for_local'
 
 
 
 
-function __jh_bootstrap_prop_for_commit {
+function __jh_sb2_bootstrap_prop_for_commit {
 
     if [ ! -e ./src/main/resources/bootstrap.properties ]
 
@@ -1063,12 +1065,12 @@ function __jh_bootstrap_prop_for_commit {
 }
 
 
-alias old_bo='__jh_bootstrap_prop_for_commit'
+alias _jh_sb2_bo='__jh_sb2_bootstrap_prop_for_commit'
 
 
 
 
-function __jh_application_yml_for_local {
+function __jh_sb3_application_yml_for_local {
 
     if [ ! -e ./src/main/resources/application-bsalberto.yml ]
 
@@ -1091,12 +1093,12 @@ function __jh_application_yml_for_local {
 }
 
 
-alias al='__jh_application_yml_for_local'
+alias _jh_sb3_bl='__jh_sb3_application_yml_for_local'
 
 
 
 
-function __jh_applicaton_yml_for_commit {
+function __jh_sb3_applicaton_yml_for_commit {
 
     if [ ! -e ./src/main/resources/application.yml ]
 
@@ -1119,14 +1121,92 @@ function __jh_applicaton_yml_for_commit {
 }
 
 
-alias ao='__jh_applicaton_yml_for_commit'
+alias _jh_sb3_bo='__jh_sb3_applicaton_yml_for_commit'
 
 
 
 
-alias bl='old_bl ; al'
+alias bl='_jh_sb2_bl ; _jh_sb3_bl'
 
-alias bo='old_bo ; ao'
+alias bo='_jh_sb2_bo ; _jh_sb3_bo'
+
+
+
+
+function __jh_java_vars_print {
+
+    echo '--> java vars: '
+
+    echo '__JH_XMS__: '${__JH_XMS__}
+
+    echo '__JH_XMX__: '${__JH_XMX__}
+
+    echo '__JH_SPRING_PROFILES_ACTIVE__: '${__JH_SPRING_PROFILES_ACTIVE__}
+
+    echo
+
+    echo '--> java vars, default: '
+
+    echo '__JH_XMS_DEFAULT__: '${__JH_XMS_DEFAULT__}
+
+    echo '__JH_XMX_DEFAULT__: '${__JH_XMX_DEFAULT__}
+
+    echo '__JH_SPRING_PROFILES_ACTIVE_DEFAULT__: '${__JH_SPRING_PROFILES_ACTIVE_DEFAULT__}
+
+}
+
+alias jvp='__jh_java_vars_print'
+
+
+
+function __jh_java_vars_set {
+
+    if [[ ( -z ${1} ) || ( -z ${2} ) || ( -z ${3} ) ]] ; then
+
+        echo 'you must provide three parameters: __JH_XMS__, __JH_XMX__, __JH_SPRING_PROFILES_ACTIVE__'
+
+        echo 'see default values'
+
+        return 1
+
+    fi
+
+    echo '--> set from ${1}, ${2}, ${3}'
+
+    echo
+
+    __JH_XMS__=${1}
+
+    __JH_XMX__=${2}
+
+    __JH_SPRING_PROFILES_ACTIVE__=${3}
+
+    __jh_java_vars_print
+
+}
+
+alias jvs='__jh_java_vars_set'
+
+
+
+function __jh_java_vars_set_from_defaults {
+
+    echo '--> set from defaults'
+
+    echo
+
+    __JH_XMS__=${__JH_XMS_DEFAULT__}
+
+    __JH_XMX__=${__JH_XMX_DEFAULT__}
+
+    __JH_SPRING_PROFILES_ACTIVE__=${__JH_SPRING_PROFILES_ACTIVE_DEFAULT__}
+
+    __jh_java_vars_print
+
+}
+
+alias jvd='__jh_java_vars_set_from_defaults'
+
 
 
 
@@ -1148,6 +1228,14 @@ read -r -d '' _jh_help_string <<- HEREDOC_EOF
 	  jjrg  : grep -P -i \${1} \${log_file}
 
 	  jjrgts: grep -P -i 'tomcat started' \${log_file}
+
+	
+
+	  jvp: __jh_java_vars_print
+
+	  jvs: __jh_java_vars_set
+
+	  jvd: __jh_java_vars_set_from_defaults
 
 	
 
@@ -1181,17 +1269,13 @@ read -r -d '' _jh_help_string <<- HEREDOC_EOF
 
 	
 
-	  g   : ./gradlew
-
-	
-
 	  tk  : taskkill -- [ (mvn_folder_no_arg) | pid | jps_name ]
 
 	
 
-	  bl  : './src/main/resources/bootstrap.properties' for local
+	  bl  : sb2-bootstrap.prop / sb3-application.yml, for local
 
-	  bo  : './src/main/resources/bootstrap.properties' for commit
+	  bo  : sb2-bootstrap.prop / sb3-application.yml, for commit
 
 	HEREDOC_EOF
 

@@ -1,4 +1,4 @@
-# BHS -- updated: 2025-03-29 02:55
+# BHS -- updated: 2025-08-01 12:04
 
 # {0} -- execute 'hi' for index
 
@@ -180,7 +180,7 @@ mountvol:  Windows command, equivalent to Unix 'mount'.  With no args, shows hel
 
 mvn:  Maven, java project and dependency management.  Examples:  mvn -version  ;  mvn -help # command itself, not pom.xml  ;  mvn help:effective-pom | grep -i -n 'maven-.*plugin' # available plugins in pom.xml  ;  mvn jar:help  ;  mvn dependency:help  ;  mvn eclipse:help  ;  mvn spring-boot:help -Ddetail  ;  mvn help:describe -Dcmd=surefire:test -Ddetail  ;  mvn help:describe -Dcmd=spring-boot:repackage  ;  mvn dependency:list  ;  mvn dependency:tree  ;  mvn dependency:resolve -U # update dependencies  ;  mvn dependency:purge-local-repository # delete .m2 files, re-download them  ;  mvn clean package -Dmaven.test.skip=true # compile, make jar  ;  mvn resources:resources jar:jar spring-boot:repackage -Dmaven.test.skip=true # do not compile, use current target folder content, make jar  ;  mvn clean install -U -Dmaven.test.skip=true # update dependencies  ;  mvn eclipse:clean # delete eclipse project files  ;  mvn -T 1C package --offline # use multithread (1 per Core), do not check online repositories  ;  
 
-mysql:  MySql database client.  See also: mysqldump.  Options:  -p prompt for password.  --password='1234' inline password.  Examples:  mysql --user root --host localhost --port 3306 -p < input.sql  ;  echo 'select 1 as my_int' | mysql --user root --host localhost --port 3306 -p  ;  mysql --user root --host localhost --port 3306 -p < <( echo 'select 1 as my_int' )  ;
+mysql:  MySql database client.  See also: mysqldump.  Options:  -p prompt for password.  --password='1234' inline password.  Examples:  mysql --user root --host localhost --port 3306 --password='1234' < input.sql  ;  echo 'select 1 as my_int' | mysql --user root --host localhost --port 3306 -p  ;  mysql --user root --host localhost --port 3306 -p < <( echo 'select 1 as my_int' )  ;
 
 mysqldump:  Client for database dump / export.  See also: mysql.  Example:  mysqldump --skip-lock-tables --routines --add-drop-table --disable-keys --extended-insert --user root --host localhost --port 3306 -p 'dbname' > outdump.sql  ;
 
@@ -278,7 +278,7 @@ users:  Pending
 
 v:
 
-vi:  Bash text editor.  Actions described are for prompt at screen bottom.  Actions:  ESC|i|v|V command, insert, visual, visual-line mode.  :q! quit without changes.  :w write file.  :q quit.  w|W|b|B next word, forward / backward.  f|F|t|T character find / to, forward / backward.  yy yank (copy) line, from 'command' mode.  y yank (copy) selection, from 'visual' mode.  p paste line or visual selection (starts at next-after-cursor).  dd|dw|d(arrow) cut/delete line / word / character.  /|? search regex, forward / backwards.  n|N next / previous search result.  *|# current cursor word, search forward / backward.  ctrl+Begin|End|(arrows), Begin|End fast cursor motion.  :{range}s/{regex}/{string}/{flags} for substitution.  :set number|nonumber to display line numbers.  :set hlsearch|nohlsearch to highlight search matches.  u|:u undo.  ctrl+r redo.  Examples:  :s/foo/bar/ # replace 'foo' with 'bar', current line, first ocurrence  ;  :%s/foo/bar/g # all lines, all ocurrences  ;  :.,$s/pick/squash/ # from current line to last line  ;  :%s/foo//gn # count matches  ;
+vi:  Bash text editor.  Actions described are for prompt at screen bottom.  Actions:  ESC|i|v|V command, insert, visual, visual-line mode.  :q! quit without changes.  :w write file.  :q quit.  w|W|b|B next word, forward / backward.  f|F|t|T character find / to, forward / backward.  yy yank (copy) line, from 'command' mode.  y yank (copy) selection, from 'visual' mode.  p paste line or visual selection (starts at next-after-cursor).  dd|dw|d(arrow) cut/delete line / word / character.  /|? search regex, forward / backwards.  n|N next / previous search result.  *|# current cursor word, search forward / backward.  ctrl+Begin|End|(arrows), Begin|End fast cursor motion.  :{range}s/{regex}/{string}/{flags} for substitution.  :set number|nonumber to display line numbers.  :set hlsearch|nohlsearch to highlight search matches.  u|:u undo.  ctrl+r redo.  :shell start subshell, 'exit' to return to vi.  ctrl+z to send vi to bg, 'fg' to resume vi.  Examples:  :s/foo/bar/ # replace 'foo' with 'bar', current line, first ocurrence  ;  :%s/foo/bar/g # all lines, all ocurrences  ;  :.,$s/pick/squash/ # from current line to last line  ;  :%s/foo//gn # count matches  ;
 
 w:
 
