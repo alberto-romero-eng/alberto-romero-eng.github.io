@@ -1,4 +1,4 @@
-# BHS -- updated: 2025-08-01 12:04
+# BHS -- updated: 2026-01-08 03:25
 
 # {0} -- execute 'hi' for index
 
@@ -52,7 +52,7 @@ df:  List storage devices, free space, mount point.  Option '-h' human readable 
 
 dialog:  Create GUIs in bash using nCurses.
 
-diff:  Compare two files line by line.  Options:  -u human readable, git-diff like.  -y side by side comparison, useful to check small variations, like properties.  -b ignore whitespace changes.  -B ignore whiteline changes.  --left-column do not double-print common lines when using -y.  --supress-common-lines do not print common lines when using -y. 
+diff:  Compare two files line by line.  See also: sort, uniq, comm, join, cut, diff, cmp.  Options:  -u human readable, git-diff like.  -y side by side comparison, useful to check small variations, like properties.  -b ignore whitespace changes.  -B ignore whiteline changes.  --left-column do not double-print common lines when using -y.  --supress-common-lines do not print common lines when using -y.
 
 dirname:  See basename, realpath, shopt (globstar).  Examples:  find . -iname '*' | xargs -n1 realpath  ;  find . -iname '*' | xargs -n1 basename  ;  find . -iname '*' | xargs -n1 dirname  ;  
 
