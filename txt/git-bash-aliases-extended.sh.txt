@@ -52,7 +52,7 @@
 # ----------------------------------
 
 
-__ALIAS_LAST_UPDATE__='2025-10-09 17:14'
+__ALIAS_LAST_UPDATE__='2026-01-27 07:18'
 
 __ALIAS_TIMEOUT__='0.3'
 
@@ -68,7 +68,7 @@ __JH_XMX_DEFAULT__='256m'
 
 __JH_JAR_LOG_HOME_DEFAULT__=${HOME}'/Desktop/log'
 
-__JH_SPRING_PROFILES_ACTIVE_DEFAULT__='albertodefault,albertopre,albertodiff' # comma separated values, no whitespace; 'default' is first and implicit
+__JH_SPRING_PROFILES_ACTIVE_DEFAULT__='albertodefault,albertopre,albertolocal,albertodiff' # comma separated values, no whitespace; 'default' is first and implicit; 'albertodiff' is optional from 2026-01-26
 
 
 __JH_XMS__=${__JH_XMS_DEFAULT__}
@@ -1409,6 +1409,8 @@ git config --global alias.ro 'restore --source'
 git config --global alias.ri 'rebase --interactive'
 
 git config --global alias.rs 'reset --soft'
+
+git config --global alias.cp 'cherry-pick'
 
 
 
