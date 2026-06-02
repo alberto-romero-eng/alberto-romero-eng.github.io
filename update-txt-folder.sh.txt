@@ -1,12 +1,14 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2025-05-18 11:35
+# UPDATE TXT FOLDER -- updated: 2026-06-02 08:19
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
 
+# = = = = = = = = = = = = = = = = = = = = = = = =
 # constants
+# = = = = = = = = = = = = = = = = = = = = = = = =
 __IO_SRC_BASH_DIR__='../bash/bash'
 __IO_SRC_APPS_DIR__='../bash/apps'
 __IO_SRC_MISCELANEOUS_DIR__='../miscellaneous'
@@ -14,22 +16,26 @@ __IO_TARGET_DIR__='./txt'
 
 
 
+# = = = = = = = = = = = = = = = = = = = = = = = =
 # clean target folder
+# = = = = = = = = = = = = = = = = = = = = = = = =
 command rm -vfR ${__IO_TARGET_DIR__}
 command mkdir -vp ${__IO_TARGET_DIR__}
 
 
 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # txt source from bash/bash/bash-help-src.txt, extended file
-
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 command cp -v ${__IO_SRC_BASH_DIR__}/bash-help-src.txt ${__IO_TARGET_DIR__}/bash-help-src-extended.txt
 command sed -E -i.old 's/(.)$/\1\n/g' ./txt/bash-help-src-extended.txt
 command rm -v ./txt/bash-help-src-extended.txt.old
 
 
 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # txt source from bash/bash/bash-help-src.txt, index file
-
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 command cp -v ${__IO_SRC_BASH_DIR__}/bash-help-src.txt ${__IO_TARGET_DIR__}/bash-help-src-index.txt.old
 _s=$(command head -1 ${__IO_TARGET_DIR__}/bash-help-src-index.txt.old)'\n'
 _s=${_s}"$(command grep --color=never -P '^[0-9A-Za-z]{2,}:' ${__IO_TARGET_DIR__}/bash-help-src-index.txt.old | command cat -n | command sed -E '{ s/^([^:]+):(.*)$/\1/g }')"
@@ -39,16 +45,18 @@ command rm -v ./txt/bash-help-src-index.txt.old
 
 
 
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # txt source from bash/bash/git-bash-aliases.sh.txt, extended file
-
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 command cp -v ${__IO_SRC_BASH_DIR__}/git-bash-aliases.sh.txt ${__IO_TARGET_DIR__}/git-bash-aliases-extended.sh.txt
 command sed -E -i.old 's/(.)$/\1\n/g' ./txt/git-bash-aliases-extended.sh.txt
 command rm -v ./txt/git-bash-aliases-extended.sh.txt.old
 
 
 
+# = = = = = = = = = = = = = = = = = = = = = = = =
 # txt sources from bash/apps
-
+# = = = = = = = = = = = = = = = = = = = = = = = =
 command cp -v ${__IO_SRC_APPS_DIR__}/elasticsearch-kibana-help.txt ${__IO_TARGET_DIR__}
 
 
@@ -66,17 +74,19 @@ command cp -v ${__IO_SRC_APPS_DIR__}/kubernetes-minikube-help.txt ${__IO_TARGET_
 
 command cp -v ${__IO_SRC_APPS_DIR__}/windows-env-help.txt ${__IO_TARGET_DIR__}
 command cp -v ${__IO_SRC_APPS_DIR__}/git-bash-windows-context-menu-help.txt ${__IO_TARGET_DIR__}
+command cp -v ${__IO_SRC_APPS_DIR__}/ubuntu-help.txt ${__IO_TARGET_DIR__}
 command cp -v ${__IO_SRC_APPS_DIR__}/debian11-VitP2413-help.txt ${__IO_TARGET_DIR__}
 command cp -v ${__IO_SRC_APPS_DIR__}/printer-hp-p1000-debian-help.txt ${__IO_TARGET_DIR__}
 
 
 command cp -v ${__IO_SRC_APPS_DIR__}/_DEPRECATED-maven-help.txt ${__IO_TARGET_DIR__}
 command cp -v ${__IO_SRC_APPS_DIR__}/_DEPRECATED-gradle-help.txt ${__IO_TARGET_DIR__}
-# command cp -v ${__IO_SRC_APPS_DIR__}/_DEPRECATED-git-help.txt ${__IO_TARGET_DIR__} # 2024-11-05: defunct
 
 
+
+# = = = = = = = = = = = = = = = = = = = = = = = =
 # txt sources from miscellaneous
-
+# = = = = = = = = = = = = = = = = = = = = = = = =
 command cp -v ${__IO_SRC_MISCELANEOUS_DIR__}/* ${__IO_TARGET_DIR__}
 mv -v ${__IO_TARGET_DIR__}/tour.txt ${__IO_TARGET_DIR__}/t.txt
 
