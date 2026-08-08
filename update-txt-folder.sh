@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # = = = = = = = = = = = = = = = = = = = = = = = =
-# UPDATE TXT FOLDER -- updated: 2026-06-02 08:19
+# UPDATE TXT FOLDER -- updated: 2026-08-08 18:44
 # = = = = = = = = = = = = = = = = = = = = = = = =
 
 
@@ -46,9 +46,9 @@ command rm -v ./txt/bash-help-src-index.txt.old
 
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-# txt source from bash/bash/git-bash-aliases.sh.txt, extended file
+# txt source from bash/bash/git-bash-aliases.sh, extended file
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-command cp -v ${__IO_SRC_BASH_DIR__}/git-bash-aliases.sh.txt ${__IO_TARGET_DIR__}/git-bash-aliases-extended.sh.txt
+command cp -v ${__IO_SRC_BASH_DIR__}/git-bash-aliases.sh ${__IO_TARGET_DIR__}/git-bash-aliases-extended.sh.txt
 command sed -E -i.old 's/(.)$/\1\n/g' ./txt/git-bash-aliases-extended.sh.txt
 command rm -v ./txt/git-bash-aliases-extended.sh.txt.old
 
